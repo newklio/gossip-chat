@@ -1,4 +1,4 @@
-import '@main/styles/globals.css'
+import '@gossip/styles/globals.css'
 import { ThemeProvider } from '@mui/material'
 import type { AppProps } from 'next/app'
 import { theme } from './theme'
