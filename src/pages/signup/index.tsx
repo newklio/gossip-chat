@@ -262,7 +262,7 @@ const Signup = () => {
           >Terms & Conditions
           </Button>
         </Stack>
-        <Stack direction="row" alignItems="center" spacing={2} width={400}>
+        <Stack direction="row" alignItems="center"  padding="8px" spacing={2} width={400}>
           <Button
             sx={{
               borderRadius: "999px",
@@ -271,8 +271,10 @@ const Signup = () => {
               fontSize: "14px",
               lineHeight: "20px",
               fontWeight: 400,
-              width: 217,
-              height: 48,
+              width: "217px",
+              height: "48px",
+              padding: "12px 20px",
+              gap:"8px",
             }}
             variant="contained"
           >
@@ -281,9 +283,9 @@ const Signup = () => {
           </Button>{" "}
           <Typography
             sx={{
-              fontSize: "14px",
-              lineHeight: "20px",
-              fontWeight: 400,
+              fontSize: "16px",
+              lineHeight: "24px",
+              fontWeight: 600,
               color: myTheme.text.light.active,
               cursor: "pointer",
             }}
@@ -292,13 +294,14 @@ const Signup = () => {
           </Typography>
           <IconButton
             sx={{
-              width: 48,
-              height: 48,
+              width: "48px",
+              height: "48px",
+              padding:"10px",
               borderRadius: "999px",
               bgcolor: myTheme.color.primary[50],
             }}
           >
-            {" "}
+    
             <Image
               src="assets/icons/Google.svg"
               alt="google"
@@ -309,8 +312,10 @@ const Signup = () => {
           </IconButton>{" "}
           <IconButton
             sx={{
-              width: 48,
-              height: 48,
+              width: "48px",
+              height: "48px",
+              gap:"8px",
+              padding:"10px",
               borderRadius: "999px",
               bgcolor: myTheme.color.primary[50],
             }}
