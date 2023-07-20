@@ -205,7 +205,7 @@ const LoginPage = () => {
                     }}
                 >
                     <Image
-                        src="/assets/icons/login/google.svg"
+                        src="/assets/icons/login/Google.svg"
                         alt="google"
                         width={28}
                         height={28}
