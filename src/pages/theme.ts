@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { Open_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 // import pelettemode
 
 // update color palette to include a `neutral` and `destructive` color
@@ -106,7 +106,7 @@ export const myTheme = {
 };
 
 // font
-export const font = Open_Sans({
+export const font = Inter({
     weight: '400',
     subsets: ['greek', 'latin-ext'],
 })
