@@ -1,8 +1,11 @@
+import { Typography } from '@mui/material'
 import React from 'react'
 
 const Feeds = () => {
     return (
-        <div>Feeds</div>
+        <Typography variant={'h1'}>
+            Feeds
+        </Typography>
     )
 }
 
