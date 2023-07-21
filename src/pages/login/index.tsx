@@ -30,7 +30,7 @@ const LoginPage = () => {
     bgcolor:'white'
     }}>
       {/* logo */}
-      <Image src="/assets/icons/login/Gossip.svg"
+      <Image src="/assets/icons/Gossip.svg"
       alt='logo'
       width={127}
       height={72}
