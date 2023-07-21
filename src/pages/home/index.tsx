@@ -1,6 +1,6 @@
 import Profile from '@gossip/components/home/Profile';
 import Trending from '@gossip/components/home/Trending';
-import Feeds from '@gossip/components/home/feeds';
+import Feeds from '@gossip/components/home/Feeds';
 import MainLayout from '@gossip/components/mainLayout';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -62,7 +62,7 @@ const HomePage = () => {
 
                 {/* left section */}
                 <Stack
-                    py={'16px'}
+                    // py={'16px'}
                     alignItems={'center'}
                     width={{
                         lg: '27.8%',
@@ -74,11 +74,13 @@ const HomePage = () => {
                 >
                     {/* trending container */}
                     <Stack
-                        px={'48px'}
+                        padding={'48px'}
                         width={400}
-                        direction={'row'}
+                        // direction={'row'}
                         justifyContent={'flex-end'}
                         alignItems={'center'}
+                        gap={'24px'}
+                        height={'551px'}
                     >
                         <Trending />
                     </Stack>
