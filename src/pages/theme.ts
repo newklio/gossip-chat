@@ -120,4 +120,7 @@ export const theme = (createTheme({
         warning: myTheme.color.warning,
         destructive: myTheme.color.destructive,
     },
+    typography: {
+        fontFamily: font.style.fontFamily,
+    },
 }))
