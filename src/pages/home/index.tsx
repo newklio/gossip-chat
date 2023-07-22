@@ -23,7 +23,8 @@ const HomePage = () => {
                 >
                     {/* profile container */}
                     <Stack
-                        px={'48px'}
+                        padding={'48px'}
+                        // gap={'16px'}
                         width={400}
                         direction={'row'}
                         alignItems={'center'}
