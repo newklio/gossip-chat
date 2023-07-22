@@ -1,13 +1,16 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
-import IconButton from "@mui/material/IconButton";
+
 import { myTheme } from "@gossip/theme";
 
 const Profile = () => {
   return (
     // <div>Home profile</div>
-    <Stack padding={'48px'} gap={"16px"}>
+
+    <Stack padding={"48px"} gap={"16px"}>
+      {/* // start of main stack*/}
+
       {/* //icon button */}
       <Stack alignItems={"flex-start"}>
         <Image
@@ -17,7 +20,7 @@ const Profile = () => {
           width={64}
           unoptimized
         />
-
+        {/* //verified  image section*/}
         <Image
           src="/assets/icons/misc/profile/verified.svg"
           alt="verigyicon"
@@ -25,10 +28,9 @@ const Profile = () => {
           height={18}
           unoptimized
           style={{ position: "absolute", marginTop: "43px", marginLeft: "1px" }}
-
         />
-
       </Stack>
+      {/* // start of profile stack for name,id,about*/}
       <Stack
         alignSelf={"stretch"}
         flexDirection={"column"}
@@ -80,7 +82,6 @@ const Profile = () => {
             }}
             color={myTheme.text.light.inactive}
           >
-
             threads.net
           </Typography>
         </Stack>
@@ -95,53 +96,64 @@ const Profile = () => {
             }}
           >
             Senior Frontend Developer | Exploring the art of programming
-            <br />
+          </Typography>
+          <Typography
+            alignSelf={"stretch"}
+            sx={{
+              fontSize: "12px",
+              fontWeight: 500,
+              lineHeight: "19px",
+            }}
+          >
             deepak@newklio.com
           </Typography>
         </Stack>
-        {/*  */}
-
-        <Stack
-          gap={"4px"}
-          height={"19px"}
-          flexDirection={"row"}
-          alignItems={"center"}
-        >
-          <Typography
-            letterSpacing={-0.2}
-            sx={{
-              fontSize: "13px",
-              fontWeight: "400",
-              lineHeight: "19px",
-            }}
-            color={myTheme.text.light.inactive}
-          >
-            2957 followers
-          </Typography>
-
-          <Stack>
-            <Image
-              src="/assets/icons/misc/profile/Ellipse 5.svg"
-              alt="dot"
-              height={2}
-              width={2}
-              unoptimized
-            />
-          </Stack>
-
-          <Typography
-            letterSpacing={-0.2}
-            sx={{
-              fontSize: "13px",
-              fontWeight: "400",
-              lineHeight: "19px",
-            }}
-            color={myTheme.text.light.inactive}
-          >
-            456 following
-          </Typography>
-        </Stack>
       </Stack>
+      {/* // end of profile stack for name,id,about*/}
+
+      {/* // start of profile stack for followers and following*/}
+      <Stack
+        gap={"4px"}
+        height={"19px"}
+        flexDirection={"row"}
+        alignItems={"center"}
+      >
+        <Typography
+          letterSpacing={-0.2}
+          sx={{
+            fontSize: "13px",
+            fontWeight: "400",
+            lineHeight: "19px",
+          }}
+          color={myTheme.text.light.inactive}
+        >
+          2957 followers
+        </Typography>
+
+        <Stack>
+          <Image
+            src="/assets/icons/misc/profile/Ellipse 5.svg"
+            alt="dot"
+            height={2}
+            width={2}
+            unoptimized
+          />
+        </Stack>
+
+        <Typography
+          letterSpacing={-0.2}
+          sx={{
+            fontSize: "13px",
+            fontWeight: "400",
+            lineHeight: "19px",
+          }}
+          color={myTheme.text.light.inactive}
+        >
+          456 following
+        </Typography>
+      </Stack>
+      {/* // start of profile stack for followers and following*/}
+      {/* // end of main stack*/}
     </Stack>
   );
 };
