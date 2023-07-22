@@ -5,13 +5,13 @@ import TextField from '@mui/material/TextField'
 import { myTheme } from '../../theme'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { useSignUp } from '@gossip/hooks/signUp'
 
 const Signup = () => {
-	const [checked, setChecked] = useState(true)
-
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setChecked(event.target.checked)
-	}
+	const { checked, handleChange, setChecked, setFormData, handleSubmit } =
+		useSignUp({
+			isChecked: false,
+		})
 
 	return (
 		<Stack
@@ -84,6 +84,16 @@ const Signup = () => {
 							},
 						}}
 						variant="outlined"
+						onChange={(event) => {
+							let fullname = event.target.value as string
+
+							setFormData((prev) => {
+								return {
+									...prev,
+									fullname,
+								}
+							})
+						}}
 						placeholder="John Doe"
 						InputProps={{
 							startAdornment: (
@@ -123,6 +133,17 @@ const Signup = () => {
 						</Typography>
 					</Stack>
 					<TextField
+						onChange={(event) => {
+							let email = event.target.value as string
+
+							setFormData((prev) => {
+								return {
+									...prev,
+									email,
+								}
+							})
+						}}
+						type="email"
 						sx={{
 							width: '100%',
 							height: '40px',
@@ -187,6 +208,16 @@ const Signup = () => {
 						</Typography>
 					</Stack>
 					<TextField
+						onChange={(event) => {
+							let password = event.target.value as string
+
+							setFormData((prev) => {
+								return {
+									...prev,
+									password,
+								}
+							})
+						}}
 						sx={{
 							width: '100%',
 							height: '40px',
@@ -275,6 +306,8 @@ const Signup = () => {
 					width={400}
 				>
 					<Button
+						disabled={!checked}
+						onClick={handleSubmit}
 						sx={{
 							borderRadius: '999px',
 							bgcolor: myTheme.color.primary[500],
