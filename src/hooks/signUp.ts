@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 
 interface useSignupProps {
@@ -12,27 +13,6 @@ interface FormData {
 
 const server = process.env.NEXT_PUBLIC_API_SERVER
 
-const singUpApiCall = async (formData: FormData) => {
-	try {
-		var myHeaders = new Headers()
-		myHeaders.append('Content-Type', 'application/json')
-		// remove cors
-
-		var raw = JSON.stringify(formData)
-
-		const data = await fetch(`${server}/users/signup`, {
-			method: 'POST',
-			headers: myHeaders,
-			body: raw,
-			redirect: 'follow',
-		})
-
-		console.log(await data.json())
-	} catch (error) {
-		console.log(error)
-	}
-}
-
 export const useSignUp = ({ isChecked }: useSignupProps) => {
 	const [checked, setChecked] = useState(isChecked)
 
@@ -41,12 +21,13 @@ export const useSignUp = ({ isChecked }: useSignupProps) => {
 		password: '',
 		fullname: '',
 	})
+	const router = useRouter()
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(event.target.checked)
 	}
 
-	const handleSubmit = useCallback(async () => {
+	const handleSubmit = useCallback(() => {
 		// validate form data
 		console.log(formData)
 
@@ -66,8 +47,30 @@ export const useSignUp = ({ isChecked }: useSignupProps) => {
 			alert('Please enter a valid password (8 characters minimum)')
 		}
 
-		await singUpApiCall(formData)
-	}, [formData])
+		var myHeaders = new Headers()
+		myHeaders.append('Content-Type', 'application/json')
+		// remove cors
+
+		var raw = JSON.stringify(formData)
+
+		fetch(`${server}/users/signup`, {
+			method: 'POST',
+			headers: myHeaders,
+			body: raw,
+			redirect: 'follow',
+		})
+			.then(async (response) => {
+				let data = await response.json()
+
+				if (response.status === 200) {
+					alert('Account created')
+					router.push('/login')
+				} else {
+					alert(data.message || 'An error occured')
+				}
+			})
+			.catch((error) => console.log('error', error))
+	}, [formData, router])
 
 	return {
 		setChecked,
