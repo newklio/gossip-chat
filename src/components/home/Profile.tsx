@@ -7,7 +7,7 @@ import { myTheme } from "@gossip/pages/theme";
 const Profile = () => {
   return (
     // <div>Home profile</div>
-    <Stack>
+    <Stack padding={'48px'} gap={"16px"}>
       {/* //icon button */}
       <Stack alignItems={"flex-start"}>
         <Image
@@ -15,16 +15,19 @@ const Profile = () => {
           alt="profileimg"
           height={64}
           width={64}
+          unoptimized
         />
-        <IconButton sx={{ marginTop: "-27.5px", marginLeft: "-6.5px" }}>
+      
           <Image
-            src="/assets/icons/misc/profile/material-symbols_verified.jpg"
+            src="/assets/icons/misc/profile/verified.svg"
             alt="verigyicon"
             width={18}
             height={18}
             unoptimized
+            style={{ position:"absolute" ,marginTop:"43px" ,marginLeft:"1px" }}
+            
           />
-        </IconButton>
+       
       </Stack>
       <Stack
         alignSelf={"stretch"}
@@ -96,6 +99,7 @@ const Profile = () => {
             deepak@newklio.com
           </Typography>
         </Stack>
+        {/*  */}
 
         <Stack
           gap={"4px"}
