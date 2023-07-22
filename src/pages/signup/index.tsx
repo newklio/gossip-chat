@@ -31,7 +31,7 @@ const Signup = () => {
       >
         {/* gossip logo */}
         <Image
-          src="assets/icons/Gossip.png"
+          src="assets/icons/Gossip.svg"
           alt="logo"
           width={127}
           height={70}
@@ -89,7 +89,7 @@ const Signup = () => {
             InputProps={{
               startAdornment: (
                 <Image
-                  src="assets/icons/account.svg"
+                  src="assets/icons/login/account.svg"
                   alt="fullname"
                   width={24}
                   height={24}
@@ -154,7 +154,7 @@ const Signup = () => {
             InputProps={{
               startAdornment: (
                 <Image
-                  src="assets/icons/email.svg"
+                  src="assets/icons/login/email.svg"
                   alt="email"
                   width={24}
                   height={24}
@@ -218,7 +218,7 @@ const Signup = () => {
             InputProps={{
               startAdornment: (
                 <Image
-                  src="assets/icons/key.svg"
+                  src="assets/icons/login/key.svg"
                   alt="key"
                   width={24}
                   height={24}
@@ -303,7 +303,7 @@ const Signup = () => {
           >
     
             <Image
-              src="assets/icons/Google.svg"
+              src="assets/icons/login/Google.svg"
               alt="google"
               width={28}
               height={28}
@@ -321,7 +321,7 @@ const Signup = () => {
             }}
           >
             <Image
-              src="assets/icons/github.svg"
+              src="assets/icons/login/github.svg"
               alt="github"
               width={28}
               height={28}
