@@ -2,7 +2,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
 import IconButton from "@mui/material/IconButton";
-import { myTheme } from "@gossip/pages/theme";
+import { myTheme } from "@gossip/theme";
 
 const Profile = () => {
   return (
@@ -17,17 +17,17 @@ const Profile = () => {
           width={64}
           unoptimized
         />
-      
-          <Image
-            src="/assets/icons/misc/profile/verified.svg"
-            alt="verigyicon"
-            width={18}
-            height={18}
-            unoptimized
-            style={{ position:"absolute" ,marginTop:"43px" ,marginLeft:"1px" }}
-            
-          />
-       
+
+        <Image
+          src="/assets/icons/misc/profile/verified.svg"
+          alt="verigyicon"
+          width={18}
+          height={18}
+          unoptimized
+          style={{ position: "absolute", marginTop: "43px", marginLeft: "1px" }}
+
+        />
+
       </Stack>
       <Stack
         alignSelf={"stretch"}
@@ -80,7 +80,7 @@ const Profile = () => {
             }}
             color={myTheme.text.light.inactive}
           >
-            
+
             threads.net
           </Typography>
         </Stack>
