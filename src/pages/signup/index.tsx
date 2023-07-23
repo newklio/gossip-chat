@@ -30,7 +30,7 @@ const Signup = () => {
 		>
 			{/* gossip logo */}
 			<Image
-				src="assets/icons/Gossip.png"
+				src="assets/icons/Gossip.svg"
 				alt="logo"
 				width={127}
 				height={70}
@@ -38,12 +38,12 @@ const Signup = () => {
 			/>
 			{/* textfield for fullname */}
 			<Stack spacing={4}>
-				<Stack spacing={1} justifyContent={'flex-start'} width={400}>
+				<Stack spacing={1} justifyContent={"flex-start"} width={400}>
 					<Stack direction="row" alignItems="center" spacing={0.5}>
 						<Typography
 							sx={{
-								fontSize: '14px',
-								lineHeight: '20px',
+								fontSize: "14px",
+								lineHeight: "20px",
 								fontWeight: 600,
 							}}
 						>
@@ -51,8 +51,8 @@ const Signup = () => {
 						</Typography>
 						<Typography
 							sx={{
-								fontSize: '14px',
-								lineHeight: '20px',
+								fontSize: "14px",
+								lineHeight: "20px",
 								fontWeight: 600,
 								color: myTheme.color.destructive[500],
 							}}
@@ -62,24 +62,24 @@ const Signup = () => {
 					</Stack>
 					<TextField
 						sx={{
-							width: '100%',
-							height: '40px',
-							borderRadius: '6px',
-							bgcolor: 'white',
+							width: "100%",
+							height: "40px",
+							borderRadius: "6px",
+							bgcolor: "white",
 							border: `1px solid ${myTheme.color.neutral[300]}`,
-							'& .MuiOutlinedInput-root': {
-								fontSize: '14px',
-								lineHeight: '20px',
-								height: '100%',
-								'& fieldset': {
+							"& .MuiOutlinedInput-root": {
+								fontSize: "14px",
+								lineHeight: "20px",
+								height: "100%",
+								"& fieldset": {
 									borderColor: myTheme.color.neutral[300],
 								},
-								'&:hover fieldset': {
-									borderColor: '#E0E0E0',
+								"&:hover fieldset": {
+									borderColor: "#E0E0E0",
 								},
-								'&.Mui-focused fieldset': {
-									borderColor: '#E0E0E0',
-									border: 'none',
+								"&.Mui-focused fieldset": {
+									borderColor: "#E0E0E0",
+									border: "none",
 								},
 							},
 						}}
@@ -88,60 +88,63 @@ const Signup = () => {
 						InputProps={{
 							startAdornment: (
 								<Image
-									src="assets/icons/account.svg"
+									src="assets/icons/login/account.svg"
 									alt="fullname"
 									width={24}
 									height={24}
 									unoptimized
-									style={{ marginRight: '16px' }}
+									style={{ marginRight: "16px" }}
 								/>
 							),
 						}}
 					/>
 				</Stack>
 				{/* textfield for Email */}
-				<Stack spacing={1} justifyContent={'flex-start'} width={400}>
+
+				<Stack spacing={1} justifyContent={"flex-start"} width={400}>
 					<Stack direction="row" alignItems="center" spacing={0.5}>
 						<Typography
 							sx={{
-								fontSize: '14px',
-								lineHeight: '20px',
+								fontSize: "14px",
+								lineHeight: "20px",
 								fontWeight: 600,
 							}}
 						>
+
 							Email
 						</Typography>
 						<Typography
 							sx={{
-								fontSize: '14px',
-								lineHeight: '20px',
+								fontSize: "14px",
+								lineHeight: "20px",
 								fontWeight: 600,
 								color: myTheme.color.destructive[500],
 							}}
 						>
+
 							*
 						</Typography>
 					</Stack>
 					<TextField
 						sx={{
-							width: '100%',
-							height: '40px',
-							borderRadius: '6px',
-							bgcolor: 'white',
+							width: "100%",
+							height: "40px",
+							borderRadius: "6px",
+							bgcolor: "white",
 							border: `1px solid ${myTheme.color.neutral[300]}`,
-							'& .MuiOutlinedInput-root': {
-								fontSize: '14px',
-								lineHeight: '20px',
-								height: '100%',
-								'& fieldset': {
+							"& .MuiOutlinedInput-root": {
+								fontSize: "14px",
+								lineHeight: "20px",
+								height: "100%",
+								"& fieldset": {
 									borderColor: myTheme.color.neutral[300],
 								},
-								'&:hover fieldset': {
-									borderColor: '#E0E0E0',
+								"&:hover fieldset": {
+									borderColor: "#E0E0E0",
 								},
-								'&.Mui-focused fieldset': {
-									borderColor: '#E0E0E0',
-									border: 'none',
+								"&.Mui-focused fieldset": {
+									borderColor: "#E0E0E0",
+									border: "none",
 								},
 							},
 						}}
@@ -150,25 +153,25 @@ const Signup = () => {
 						InputProps={{
 							startAdornment: (
 								<Image
-									src="assets/icons/email.svg"
+									src="assets/icons/login/email.svg"
 									alt="email"
 									width={24}
 									height={24}
 									unoptimized
-									style={{ marginRight: '16px' }}
+									style={{ marginRight: "16px" }}
 								/>
 							),
 						}}
 					/>
 				</Stack>
-				<Stack spacing={1} justifyContent={'flex-start'} width={400}>
+				<Stack spacing={1} justifyContent={"flex-start"} width={400}>
 					{/* textfield for Password */}
 
 					<Stack direction="row" alignItems="center" spacing={0.5}>
 						<Typography
 							sx={{
-								fontSize: '14px',
-								lineHeight: '20px',
+								fontSize: "14px",
+								lineHeight: "20px",
 								fontWeight: 600,
 							}}
 						>
@@ -176,37 +179,35 @@ const Signup = () => {
 						</Typography>
 						<Typography
 							sx={{
-								fontSize: '14px',
-								lineHeight: '20px',
+								fontSize: "14px",
+								lineHeight: "20px",
 								fontWeight: 600,
 								color: myTheme.color.destructive[500],
 							}}
-						>
-							{' '}
-							*
+						> *
 						</Typography>
 					</Stack>
 					<TextField
 						sx={{
-							width: '100%',
-							height: '40px',
-							fontSize: '14px',
-							borderRadius: '6px',
-							bgcolor: 'white',
+							width: "100%",
+							height: "40px",
+							fontSize: "14px",
+							borderRadius: "6px",
+							bgcolor: "white",
 							border: `1px solid ${myTheme.color.neutral[300]}`,
-							'& .MuiOutlinedInput-root': {
-								fontSize: '14px',
-								lineHeight: '20px',
-								height: '100%',
-								'& fieldset': {
+							"& .MuiOutlinedInput-root": {
+								fontSize: "14px",
+								lineHeight: "20px",
+								height: "100%",
+								"& fieldset": {
 									borderColor: myTheme.color.neutral[300],
 								},
-								'&:hover fieldset': {
-									borderColor: '#E0E0E0',
+								"&:hover fieldset": {
+									borderColor: "#E0E0E0",
 								},
-								'&.Mui-focused fieldset': {
-									borderColor: '#E0E0E0',
-									border: 'none',
+								"&.Mui-focused fieldset": {
+									borderColor: "#E0E0E0",
+									border: "none",
 								},
 							},
 						}}
@@ -216,137 +217,130 @@ const Signup = () => {
 						InputProps={{
 							startAdornment: (
 								<Image
-									src="assets/icons/key.svg"
+									src="assets/icons/login/key.svg"
 									alt="key"
 									width={24}
 									height={24}
 									unoptimized
-									style={{ marginRight: '16px' }}
+									style={{ marginRight: "16px" }}
 								/>
 							),
 						}}
 					/>
 				</Stack>
-				<Stack
-					direction="row"
-					alignItems="center"
-					spacing={0}
-					width={400}
-				>
+				<Stack direction="row" alignItems="center" spacing={0} width={400}>
 					<Checkbox
 						checked={checked}
 						onChange={handleChange}
-						inputProps={{ 'aria-label': 'controlled' }}
+						inputProps={{ "aria-label": "controlled" }}
 					/>
 					<Typography
 						sx={{
-							fontSize: '14px',
-							lineHeight: '20px',
+							fontSize: "14px",
+							lineHeight: "20px",
 							fontWeight: 400,
 							color: myTheme.text.light.active,
-							cursor: 'pointer',
+							cursor: "pointer",
 						}}
 						onClick={() => {
-							setChecked(!checked)
+							setChecked(!checked);
 						}}
-					>
-						I agree to all
+					>I agree to all
 					</Typography>
 					<Button
 						variant="text"
 						sx={{
-							lineHeight: '16px',
+							lineHeight: "16px",
 							fontWeight: 400,
-							fontSize: '14px',
+							fontSize: "14px",
 							color: myTheme.color.primary[500],
 							textTransform: 'none',
-							padding: '4px 8px',
-							gap: '8px',
+							padding: "4px 8px",
+							gap: "8px",
 						}}
-					>
-						Terms & Conditions
+					>Terms & Conditions
 					</Button>
 				</Stack>
-				<Stack
-					direction="row"
-					alignItems="center"
-					spacing={2}
-					width={400}
-				>
+				<Stack direction="row" alignItems="center" padding="8px" spacing={2} width={400}>
 					<Button
 						sx={{
-							borderRadius: '999px',
+							borderRadius: "999px",
 							bgcolor: myTheme.color.primary[500],
 							color: myTheme.text.dark.active,
-							fontSize: '14px',
-							lineHeight: '20px',
+							fontSize: "14px",
+							lineHeight: "20px",
 							fontWeight: 400,
-							width: 217,
-							height: 48,
+							width: "217px",
+							height: "48px",
+							padding: "12px 20px",
+							gap: "8px",
 						}}
 						variant="contained"
 					>
 						Sign Up
-						<ChevronRightIcon />{' '}
-					</Button>{' '}
+						<ChevronRightIcon />{" "}
+					</Button>{" "}
 					<Typography
 						sx={{
-							fontSize: '14px',
-							lineHeight: '20px',
-							fontWeight: 400,
+							fontSize: "16px",
+							lineHeight: "24px",
+							fontWeight: 600,
 							color: myTheme.text.light.active,
-							cursor: 'pointer',
+							cursor: "pointer",
 						}}
 					>
 						OR
 					</Typography>
 					<IconButton
 						sx={{
-							width: 48,
-							height: 48,
-							borderRadius: '999px',
+							width: "48px",
+							height: "48px",
+							padding: "10px",
+							borderRadius: "999px",
 							bgcolor: myTheme.color.primary[50],
 						}}
 					>
-						{' '}
+
 						<Image
-							src="assets/icons/Google.svg"
+							src="assets/icons/login/Google.svg"
 							alt="google"
 							width={28}
 							height={28}
 							unoptimized
-						/>{' '}
-					</IconButton>{' '}
+						/>{" "}
+					</IconButton>{" "}
 					<IconButton
 						sx={{
-							width: 48,
-							height: 48,
-							borderRadius: '999px',
+							width: "48px",
+							height: "48px",
+							gap: "8px",
+							padding: "10px",
+							borderRadius: "999px",
 							bgcolor: myTheme.color.primary[50],
 						}}
 					>
 						<Image
-							src="assets/icons/github.svg"
+							src="assets/icons/login/github.svg"
 							alt="github"
 							width={28}
 							height={28}
 							unoptimized
 						/>
 					</IconButton>
-				</Stack>{' '}
+				</Stack>{" "}
 				<Stack
 					direction="row"
-					display={'flex'}
+					display={"flex"}
 					alignItems="center"
 					spacing={0}
 					width={400}
-					justifyContent={'center'}
+					justifyContent={"center"}
 				>
 					<Typography
 						sx={{
-							fontSize: '14px',
+							fontSize: "14px",
 							fontWeight: 400,
-							lineHeight: '16px',
+							lineHeight: "16px",
 							color: myTheme.text.light.active,
 						}}
 					>
@@ -356,21 +350,21 @@ const Signup = () => {
 					<Button
 						variant="text"
 						sx={{
-							fontSize: '14px',
-							lineHeight: '20px',
+							fontSize: "14px",
+							lineHeight: "20px",
 							fontWeight: 400,
 							color: myTheme.color.primary[500],
 							textTransform: 'none',
-							gap: '8px',
-							padding: '4px 8px',
+							gap: "8px",
+							padding: "4px 8px",
 						}}
-					>
-						Login
+					>Login
 					</Button>
 				</Stack>
 			</Stack>
 		</Stack>
-	)
-}
 
-export default Signup
+	);
+};
+
+export default Signup;
