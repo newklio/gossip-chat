@@ -9,7 +9,7 @@ const HomePage = () => {
     return (
         <MainLayout title="Home">
             {/* main section */}
-            <Stack direction={'row'} alignItems={'center'}>
+            <Stack direction={'row'} alignItems={'flex-start'}>
 
                 {/* right profile section */}
                 <Stack
