@@ -5,15 +5,45 @@ import TextField from '@mui/material/TextField'
 import { myTheme } from '../../theme'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { Schema, z, ZodType } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+
+const schema = z.object({
+	Email: z.string().email(),
+	fullname: z.string().min(2).max(50),
+	Password: z.string().min(8,{
+	  message: "Password must be at least 8 characters long",
+	}).max(50,{ message : "Password must be at least 50 characters",
+  }),
+  })
+
+type FormData=z.infer<typeof schema>
+
+  
 const Signup = () => {
 	const [checked, setChecked] = useState(true)
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	  } = useForm<FormData>({ resolver: zodResolver(schema) });
+	  
+	
+	
+	  const SubmitData = handleSubmit((data)=> {
+		console.log(data);
+	  })
+	
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(event.target.checked)
 	}
 
 	return (
+		<form onSubmit={SubmitData}>
 		<Stack
 			sx={{
 				position: 'absolute',
@@ -85,6 +115,10 @@ const Signup = () => {
 						}}
 						variant="outlined"
 						placeholder="John Doe"
+						{...register("fullname")}
+						error={Boolean(errors.fullname?true:false)}
+						helperText={errors.fullname?.message}
+						
 						InputProps={{
 							startAdornment: (
 								<Image
@@ -150,6 +184,10 @@ const Signup = () => {
 						}}
 						variant="outlined"
 						placeholder="john@example.com"
+						type="email"
+						{...register("Email")}
+						error={Boolean(errors.Email?true:false)}
+						helperText={errors.Email?.message}
 						InputProps={{
 							startAdornment: (
 								<Image
@@ -214,6 +252,10 @@ const Signup = () => {
 						variant="outlined"
 						type="password"
 						placeholder="********"
+						{...register("Password")}
+						error={Boolean(errors.Password?true:false)}
+						helperText={errors.Password?.message}
+						
 						InputProps={{
 							startAdornment: (
 								<Image
@@ -276,10 +318,11 @@ const Signup = () => {
 							gap: "8px",
 						}}
 						variant="contained"
+						type="submit"
 					>
 						Sign Up
-						<ChevronRightIcon />{" "}
-					</Button>{" "}
+						<ChevronRightIcon />
+					</Button>
 					<Typography
 						sx={{
 							fontSize: "16px",
@@ -363,7 +406,7 @@ const Signup = () => {
 				</Stack>
 			</Stack>
 		</Stack>
-
+		</form>
 	);
 };
 
