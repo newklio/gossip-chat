@@ -1,47 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, Typography, TextField, Button, Checkbox } from "@mui/material";
 import Image from "next/image";
 import { myTheme } from "../../theme";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import IconButton from "@mui/material/IconButton";
-import { Schema, z, ZodType } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-
-
-
-
-const schema = z.object({
-  Email: z.string().email(),
-  Password: z.string().min(8,{
-    message: "Password must be at least 8 characters long",
-  }).max(50,{ message : "Password must be at least 50 characters",
-}),
-})
-// const schema = z.object({
-//   Email: z.string().email(),
-//   Password: z.string().min(8).max(50),
-// });
-
-type loginFormData=z.infer<typeof schema>
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { SignLog } from "../hooks/SignLog";
 
 const LoginPage = () => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<loginFormData>({ resolver: zodResolver(schema) });
-  const [checked, setChecked] = useState(true);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
-  const SubmitData = handleSubmit((data)=> {
-    console.log(data);
-  })
- 
-  const[ShowPassword,setShowPassword]=useState(false)
+    checked,
+    handleChange,
+    SubmitData,
+    ShowPassword,
+    setShowPassword,
+    setChecked,
+  } = SignLog();
 
   return (
     <form onSubmit={SubmitData}>
@@ -124,8 +100,10 @@ const LoginPage = () => {
             placeholder="john@example.com"
             type="email"
             {...register("Email")}
-			error={Boolean(errors.Email?true:false)}
+            error={Boolean(errors.Email ? true : false)}
             helperText={errors.Email?.message}
+           
+            
             InputProps={{
               startAdornment: (
                 <Image
@@ -192,12 +170,12 @@ const LoginPage = () => {
             }}
             variant="outlined"
             placeholder="********"
-            type={
-              ShowPassword? "text" : "password"
-            }
+            type={ShowPassword ? "text" : "password"}
             {...register("Password")}
             helperText={errors.Password?.message}
-			      error={Boolean(errors.Password)}
+            error={Boolean(errors.Password)}
+           
+              
             InputProps={{
               startAdornment: (
                 <Image
@@ -210,13 +188,12 @@ const LoginPage = () => {
                 />
               ),
               endAdornment: (
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowPassword(!ShowPassword)
-                                }
-                              >
-                               {ShowPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!ShowPassword)}
+                >
+                  {ShowPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
               ),
             }}
           ></TextField>

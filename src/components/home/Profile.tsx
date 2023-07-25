@@ -1,34 +1,35 @@
-import { Stack, Typography } from "@mui/material";
+import { Avatar, Badge, Chip, Stack, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
 
-import { myTheme } from "@gossip/theme";
+import { font, myTheme } from "@gossip/theme";
 
 const Profile = () => {
   return (
     // <div>Home profile</div>
 
-    <Stack padding={"48px"} gap={"16px"}>
+    <Stack padding={"48px"} gap={"16px"} fontFamily={font.style.fontFamily}>
       {/* // start of main stack*/}
 
       {/* //icon button */}
       <Stack alignItems={"flex-start"}>
-        <Image
-          src="/assets/icons/misc/profile/Ellipse 12.svg"
-          alt="profileimg"
-          height={64}
-          width={64}
-          unoptimized
-        />
-        {/* //verified  image section*/}
-        <Image
-          src="/assets/icons/misc/profile/verified.svg"
-          alt="verigyicon"
-          width={18}
-          height={18}
-          unoptimized
-          style={{ position: "absolute", marginTop: "43px", marginLeft: "1px" }}
-        />
+        <Badge
+          overlap="circular"
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          badgeContent={
+            <Avatar
+              src="/assets/icons/misc/profile/verified.svg"
+              alt="verigyicon"
+              sx={{ width: "18px", height: "18px" }}
+            />
+          }
+        >
+          <Avatar
+            src="/assets/icons/misc/profile/Ellipse 12.svg"
+            alt="profileimg"
+            sx={{ width: "64px", height: "64px" }}
+          />
+        </Badge>
       </Stack>
       {/* // start of profile stack for name,id,about*/}
       <Stack
@@ -80,10 +81,25 @@ const Profile = () => {
               textTransform: "none",
               bgcolor: "#EEEEEE",
             }}
-            color={myTheme.text.light.inactive}
+            // color={myTheme.text.light.inactive}
           >
             threads.net
           </Typography>
+          {/* <Chip height:"2"
+            
+            sx={{
+              "& .MuiChip-label": {
+                padding: "7px 8px",
+                fontSize: "9px",
+                fontWeight: 500,
+                width: "74px",
+                minHeight:"24px",
+                height: "24px",
+                lineHeight: "10px",
+              },
+            }}
+            label="Threads.net"
+          /> */}
         </Stack>
 
         <Stack>
