@@ -5,39 +5,21 @@ import TextField from '@mui/material/TextField'
 import { myTheme } from '../../theme'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Schema, z, ZodType } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-const schema = z.object({
-    Email: z.string().email(),
-    fullname: z.string().min(2).max(50),
-    Password: z
-        .string()
-        .min(8, {
-            message: 'Password must be at least 8 characters long',
-        })
-        .max(50, { message: 'Password must be at least 50 characters' }),
-})
-
-type FormData = z.infer<typeof schema>
+import { Signpage } from '../../hooks/SignIn'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 const Signup = () => {
-    const [checked, setChecked] = useState(true)
-
     const {
+        handleChange,
+        SubmitData,
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>({ resolver: zodResolver(schema) })
-
-    const SubmitData = handleSubmit((data) => {
-        console.log(data)
-    })
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked)
-    }
+        checked,
+        setChecked,
+        ShowPassword,
+        setShowPassword,
+    } = Signpage()
 
     return (
         <form onSubmit={SubmitData}>
@@ -194,9 +176,9 @@ const Signup = () => {
                             variant="outlined"
                             placeholder="john@example.com"
                             type="email"
-                            {...register('Email')}
-                            error={Boolean(errors.Email ? true : false)}
-                            helperText={errors.Email?.message}
+                            {...register('email')}
+                            error={Boolean(errors.email ? true : false)}
+                            helperText={errors.email?.message}
                             InputProps={{
                                 startAdornment: (
                                     <Image
@@ -269,21 +251,35 @@ const Signup = () => {
                                 },
                             }}
                             variant="outlined"
-                            type="password"
                             placeholder="********"
-                            {...register('Password')}
-                            error={Boolean(errors.Password ? true : false)}
-                            helperText={errors.Password?.message}
+                            type={ShowPassword ? 'text' : 'password'}
+                            {...register('password')}
+                            helperText={errors.password?.message}
+                            error={Boolean(errors.password)}
                             InputProps={{
                                 startAdornment: (
                                     <Image
-                                        src="assets/icons/login/key.svg"
+                                        src="/assets/icons/login/key.svg"
                                         alt="key"
                                         width={24}
                                         height={24}
                                         unoptimized
                                         style={{ marginRight: '16px' }}
                                     />
+                                ),
+                                endAdornment: (
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() =>
+                                            setShowPassword(!ShowPassword)
+                                        }
+                                    >
+                                        {ShowPassword ? (
+                                            <Visibility />
+                                        ) : (
+                                            <VisibilityOff />
+                                        )}
+                                    </IconButton>
                                 ),
                             }}
                         />
