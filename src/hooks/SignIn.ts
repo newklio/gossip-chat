@@ -23,7 +23,7 @@ type SignInFormData = z.infer<typeof schema>
 const Server = process.env.NEXT_PUBLIC_API_SERVER
 console.log(Server)
 
-export const signpage = () => {
+export const Signpage = () => {
     const [checked, setChecked] = useState(true)
     const [ShowPassword, setShowPassword] = useState(false)
 

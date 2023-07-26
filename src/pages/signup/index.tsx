@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField'
 import { myTheme } from '../../theme'
 import IconButton from '@mui/material/IconButton'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { signpage } from '../../hooks/SignIn'
+import { Signpage } from '../../hooks/SignIn'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 const Signup = () => {
@@ -19,8 +19,7 @@ const Signup = () => {
         setChecked,
         ShowPassword,
         setShowPassword,
-    } = signpage()
-
+    } = Signpage()
 
     return (
         <form onSubmit={SubmitData}>
@@ -180,7 +179,6 @@ const Signup = () => {
                             {...register('email')}
                             error={Boolean(errors.email ? true : false)}
                             helperText={errors.email?.message}
-
                             InputProps={{
                                 startAdornment: (
                                     <Image
@@ -262,7 +260,6 @@ const Signup = () => {
                                 startAdornment: (
                                     <Image
                                         src="/assets/icons/login/key.svg"
-
                                         alt="key"
                                         width={24}
                                         height={24}
