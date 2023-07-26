@@ -21,6 +21,7 @@ const Signup = () => {
         setShowPassword,
     } = signpage()
 
+
     return (
         <form onSubmit={SubmitData}>
             <Stack
@@ -179,6 +180,7 @@ const Signup = () => {
                             {...register('email')}
                             error={Boolean(errors.email ? true : false)}
                             helperText={errors.email?.message}
+
                             InputProps={{
                                 startAdornment: (
                                     <Image
@@ -260,6 +262,7 @@ const Signup = () => {
                                 startAdornment: (
                                     <Image
                                         src="/assets/icons/login/key.svg"
+
                                         alt="key"
                                         width={24}
                                         height={24}
