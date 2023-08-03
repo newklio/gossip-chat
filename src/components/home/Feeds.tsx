@@ -1,403 +1,280 @@
-import { Avatar, Badge, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
-import React from 'react'
-import { font, myTheme } from '@gossip/theme'
-import Image from 'next/image'
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import { Avatar, Badge, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import Image from 'next/image';
+import { myTheme } from '@gossip/theme';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Height } from '@mui/icons-material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const Feeds = () => {
+interface ThreadDetails {
+    username: string,
+    time: string,
+    avatar: string,
+    content: string,
+    tags?: string[],
+    images?: string[],
+    repostsCount?: number,
+    commentsCount?: number,
+}
+
+const threadsList: ThreadDetails[] = [
+    {
+        username: 'aura',
+        time: '2h',
+        avatar: '/assets/icons/profile/user1.jpg',
+        content: 'I have been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please',
+        tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
+        images: [
+            "/assets/icons/feeds/Rectangle 8.jpg", "/assets/icons/feeds/Rectangle 9.jpg"
+
+        ],
+        repostsCount: 10,
+        commentsCount: 20,
+    },
+    {
+        username: 'dk404',
+        time: '2 min',
+        avatar: '/assets/icons/misc/profile/Ellipse 12.svg',
+        content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
+        tags: ["#full - stack", "#frontend", "#figma"],
+        repostsCount: 7,
+        commentsCount: 59,
+    },
+    {
+        username: 'Aura',
+        time: '20 min',
+        avatar: '/assets/icons/feeds/Ellipse 1.svg',
+        content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
+        tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
+        repostsCount: 10,
+        commentsCount: 59,
+    },
+    {
+        username: 'Aman Singh',
+        time: '1 min',
+        avatar: '/assets/icons/feeds/Ellipse 12.svg',
+        content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
+        tags: ["#full - stack", "#amanTech", "#BeyondExcited"],
+        images: [
+            "/assets/icons/Gossip.svg",
+        ],
+        repostsCount: 100,
+        commentsCount: 509,
+    },
+]
+
+
+const Thread = (
+    {
+        details
+    }: {
+        details: ThreadDetails
+    }
+) => {
     return (
-        // start of the main stack
         <Stack
-            display={'flex'}
-            flexDirection={'column'}
-            padding={'0px 8px'}
-            alignItems={'flex-start'}
-            gap={'16px'}
-            width={'640px'}
-            height={'949px'}
+            direction={'row'}
+            spacing={'12px'}
+            sx={{
+                p: '16px 16px 16px 12px',
+                borderRadius: '16px',
+                bgcolor: '#fff',
+                boxShadow: '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
+                maxWidth: '100%',
+                width: '100%',
+                // height: 300,
+            }}
         >
+            {/* left avatar section */}
             <Stack
-                // start of creating new post
-                fontFamily={font.style.fontFamily}
-                display={'flex'}
-                alignItems={'flex-start'}
-                bgcolor={"#FFFFFF"}
-                flexDirection={'row'}
-                boxShadow='2'
-                padding={'16px 15px 16px 12px'}
+                spacing={'16px'}
                 sx={{
-                    width: '624px',
-                    Height: '95px',
-                    borderRadius: '16px',
-                    gap: '12px',
-                    boxShadow: 2,
+                    alignItems: 'center',
+                    alignSelf: 'stretch',
+                    maxWidth: '100%',
                 }}
             >
+                {/* avatar with button */}
+                <Badge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    badgeContent={
+                        <IconButton>
+                            <Avatar
+                                src="/assets/icons/feeds/Plus Icon.svg"
+                                alt="pulsicon"
+                                sx={{ width: '18px', height: '18px' }}
+                            />
+                        </IconButton>
+                    }
+                >
+                    <Avatar
+                        src={details.avatar}
+                        alt="postprofileimg"
+                        sx={{ width: '36px', height: '36px' }}
+                    />
+                </Badge>
+                {/* end avatar with button */}
+
+                {/* horizontal line */}
                 <Stack
-                    // {/* start of the stcak for avatar icon */}
-                    display={'flex'}
                     sx={{
-                        width: "36px",
-                        Height: "63px",
-                        gap: "18px",
-                        alignItems: "center",
+                        position: "relative",
+                        width: "2px",
+                        height: "88%",
                     }}
                 >
-                    <IconButton>
-                        <Badge>
-                            <Avatar
-                                src="/assets/icons/misc/profile/Ellipse 12.svg"
-                                alt="profileimg"
-                                sx={{ width: '36px', height: '36px' }}
-                            />
-                        </Badge>
-                    </IconButton>
-                    {/* end of the stack for avatar icon */}
+                    <Image
+                        src="/assets/icons/feeds/Vector 1.png"
+                        alt="horizontal_line"
+                        fill
+                        unoptimized
+                    />
                 </Stack>
-                <Stack flexDirection={'column'} alignItems={'flex-start'} gap={"10px"}
-                    // {/* start of the content for creating post */}
-                    sx={{
-                        // width: "548px",
-                    }}>
-                    <Stack
-                        // stack for textfield content
-                        width={"548px"}
+                {/* end horizontal line */}
+            </Stack>
+            {/* end left avatar section */}
+
+            {/* right content section -heading Caption imagees and like comment */}
+            <Stack direction={"column"} gap={"12px"} width={'100%'}
+            >
+                {/* heading */}
+                <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                    {/* user name */}
+                    <Typography
                         sx={{
-                            overflow: "hidden",
-                            position: "absolute",
-
-
-                        }}
-                    >
-                        <TextField
-                            sx={{
-                                width: '548px',
-                                height: '200px', // Set the desired height
-                                overflow: 'hidden',
-                                '& .MuiInputBase-root': {
-                                    padding: '10px',
-                                },
-                                '& .MuiInputBase-input': {
-                                    fontSize: '15px',
-                                    lineHeight: '20px',
-                                    fontWeight: '500',
-                                    width: '100%',
-                                    height: '100%',
-                                    overflow: 'hidden',
-                                    overflowY: 'auto',
-                                    '&::-webkit-scrollbar': {
-                                        display: 'none',
-                                    },
-                                },
-                                "& fieldset": { border: "none" },
-                            }}
-                            id="standard-textarea"
-                            multiline
-                            rows={3}
-                            placeholder="Share something cool today"
-                        />
-
-
-                        {/* end of stack for textfield content */}
-                    </Stack>
-                    <Stack
-                        sx={{
-                            alignItems: "flex-start",
-                            display: "flex",
-                            gap: "16px",
-                            width: "548px",
-                            height: "63px"
+                            fontSize: "14px",
+                            lineHeight: "19px",
+                            fontWeight: "600",
                         }}>
-                    </Stack>
-                    {/* stack for buttons */}
-                    <Stack display={'flex'} flexDirection={'row'}
-                        sx={{
-                            width: "548px",
-                            height: "32px",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}>
-                        <IconButton>
-                            <Image
-                                src="assets/icons/feeds/paperclip.svg"
-                                alt="Clip"
-                                width={24}
-                                height={24}
-                                unoptimized
-                            />
-                        </IconButton>
+                        {details.username}
+                    </Typography>
+                    {/* end user name */}
+
+                    {/* time and options */}
+                    <Stack direction={'row'} alignItems={'center'} spacing={'16px'}>
+                        {/* time */}
+                        <Typography
+                            fontSize={"12px"}
+                            lineHeight={"19px"}
+                            fontWeight={400}
+                            color={myTheme.text.light.inactive}
+                        >
+                            {details.time}
+                        </Typography>
+                        {/* end time */}
+
+                        {/* option icon */}
                         <IconButton
                             sx={{
-                                borderRadius: '40px',
-                                gap: "12px",
-                                bgcolor: "#EEEEEE",
-                                color: '#9E9E9E',
-                                alignItems: "center",
-                                padding: "9px 8px 7px 8px"
+                                width: '24px',
+                                height: '24px',
                             }}
                         >
-                            <Image
-                                src="assets/icons/feeds/inactive.svg"
-                                alt="Send"
-                                width={16}
-                                height={16}
-                                unoptimized
+                            <MoreHorizIcon
+                                sx={{
+                                    color: grey[900],
+                                }}
                             />
                         </IconButton>
-                        {/* end of stack for button  */}
                     </Stack>
-                    {/* end of content for creating new post */}
                 </Stack>
-                {/* // end of creating new post */}
-            </Stack>
-            <Stack
-                // {/* outer stack for the posts */}
-                width={"624px"}
-                height={"453px"}
-                borderRadius={"16px"}
-                display={'flex'}
-                bgcolor={"white"}
-                padding={"16px 16px 16px 12px"}
-                gap={"12px"}
-                boxShadow='3'
-                alignItems={"flex-start"}
-                flexDirection={"row"}
-            >
-                {/* stack for Avatar column */}
-                <Stack
-                    flexDirection={"column"}
-                    alignItems={"flex-start"}
-                    gap={"16px"}
-                >
-                    {/* Start for avatr */}
-                    <Stack>
-                        <IconButton >
-                            <Badge
-                                overlap="circular"
-                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                badgeContent={
-                                    <Avatar
-                                        src="/assets/icons/feeds/Plus Icon.svg"
-                                        alt="verigyicon"
-                                        sx={{ width: '18px', height: '18px' }}
-                                    />
-                                }
-                            >
-                                <Avatar
-                                    src="/assets/icons/feeds/Ellipse 1.svg"
-                                    alt="postprofileimg"
-                                    sx={{ width: '36px', height: '36px' }}
-                                />
-                            </Badge>
-                        </IconButton>
-                        {/* end for avatar */}
-                    </Stack>
-                    {/* stack for Avatar column horizontal line */}
-                    <Stack alignSelf={"center"} display={"flex"}
+                {/* end heading */}
+                {/* start caption */}
+                <Typography
+                    sx={{
+                        fontSize: "13px",
+                        lineHeight: "19px",
+                        fontWeight: "400",
+                        color: "#000000",
+                    }}
+                > {details.content}
+                </Typography>
+                {/* end caption */}
+                {/* start tags */}
+                <Typography
+                    sx={{
+                        fontSize: "13px",
+                        lineHeight: "19px",
+                        fontWeight: "400",
+                        color: "#03A9F4",
+                    }}
+                >{details.tags?.map((tag, index) => (
+                    <span key={index} style={{ marginRight: '6px' }}>
+                        {tag}
+                    </span>
+                ))}
+                </Typography>
+                {/* end tags */}
+
+                {/* start for images */}
+                <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'}>
+                    {details.images?.map((imgSrc, index) => (
+                        <Image
+                            key={index} // Make sure to provide a unique key for each image
+                            src={imgSrc}
+                            alt={`Image ${index + 1}`}
+                            width={"238"}
+                            height={"230"}
+                        />
+                    ))}
+                </Stack>
+                {/* end for images */}
+                {/* start for icon buttons like comment repost */}
+                <Stack alignItems={'flex-start'} direction={"row"} gap={"12px"}>
+                    {/* for like */}
+                    <IconButton
                         sx={{
-                            strokeWidth: '2px',
-                            stroke: "#E0E0E0",
-                            display: "flex",
+                            width: '24px',
+                            height: '24px',
+                        }}
+                    >
+                        <FavoriteBorderIcon
+                            sx={{
+                                color: grey[900],
+                            }}
+                        />
+                    </IconButton>
+                    {/* for comment */}
+                    <IconButton
+                        sx={{
+                            width: '24px',
+                            height: '24px',
                         }}
                     >
                         <Image
-                            src="/assets/icons/feeds/Vector 1.png"
-                            alt="postprofileimg"
-                            height={360}
-                            width={3}
+                            src="/assets/icons/feeds/Comment.svg"
+                            alt="commet"
+                            height={24}
+                            width={24}
                             unoptimized
                         />
-                        {/* END of stack for Avatar column horizontal line */}
-                    </Stack>
-                    {/* end stack for Avatar column */}
-                </Stack>
-                {/* start of stack fot the content of post */}
-                <Stack
-                    flexDirection={"column"}
-                    gap={"12px"} height={"421px"} width={"548px"}
-                >
-                    {/* start of the stack for the name field description and tags */}
-                    <Stack
-                        width={"548px"}
-                        height={"112px"}
-                        gap={"6px"}
-                        flexDirection={"column"}
-                        alignItems={"flex-start"}
-                    >
-                        {/* stack for name field*/}
-                        <Stack >
-                            {/*Start of stack for name time icon*/}
-                            <Stack
-                                width={"548px"}
-                                height={"24px"}
-                                justifyContent={"space-between"}
-                                flexDirection={"row"}
-                            >
-                                <Typography
-                                    sx={{
-                                        fontSize: "14px",
-                                        lineHeight: "19px",
-                                        fontWeight: "600",
-                                        width: "30px",
-                                        height: "19px",
-                                    }}>
-                                    aura
-                                </Typography>
-                                <Stack
-                                    // Start of stack for time and three dot button
-                                    flexDirection={'row'}
-                                    alignItems={'center'}
-                                    gap={"16px"}
-                                >
-                                    <Typography
-                                        fontSize={"12px"}
-                                        lineHeight={"19px"}
-                                        fontWeight={400}
-                                        color={myTheme.text.light.inactive}
-                                    >
-                                        2min
-                                    </Typography>
-                                    <Button
-                                        sx={{
-                                            backgroundColor: "transparent",
-                                            color: "black",
-                                            width: "24px",
-                                            height: "24px",
-                                            justifyContent: "center",
-                                            padding: "0px 5px 0px 6px"
-                                        }}
-                                    ><MoreHorizIcon />
-                                    </Button>
-                                </Stack>
-                                {/* // end of stack for time and three dot button */}
-                            </Stack>
-                            {/*end of stack for name time and icon */}
-                        </Stack>
-                        {/*end of stack for name field */}
-                        <Stack>
-                            <Typography
-                                sx={{
-                                    fontSize: "13px",
-                                    lineHeight: "19px",
-                                    fontWeight: "400",
-                                    width: "548px",
-                                    height: "57px",
-                                    paddingRight: "16px"
-
-                                }}
-                            >
-                                I’ve been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please
-                            </Typography>
-                        </Stack>
-                        <Stack>
-                            <Typography
-                                sx={{
-                                    fontSize: "13px",
-                                    lineHeight: "19px",
-                                    fontWeight: "400",
-                                    width: "548px",
-                                    height: "57px",
-                                    color: "#03A9F4"
-                                }}
-                            >
-                                #full-stack #frontend #figma
-                            </Typography>
-                        </Stack>
-                    </Stack>
-                    {/* end of the stack for name description and tag */}
-                    {/* START of stack for images */}
-                    <Stack
+                    </IconButton>
+                    {/* for repost */}
+                    <IconButton
                         sx={{
-                            flexDirection: "row",
-                            alignItems: "flex-start",
-                            gap: "8px",
-                            width: "484px",
-                            height: "240px",
-                            borderRadius: "8px"
+                            width: '24px',
+                            height: '24px',
                         }}
-                    >
-                        <Stack borderRadius={"8px"}>
-                            <Image
-                                src="/assets/icons/feeds/Rectangle 9.jpg"
-                                alt="img1"
-                                height={230}
-                                width={230}
-                                unoptimized
-                            />
-                        </Stack>
-                        <Stack borderRadius={"8px"}>
-                            <Image
-                                src="/assets/icons/feeds/Rectangle 8.jpg"
-                                alt="img2"
-                                height={230}
-                                width={230}
-                                unoptimized
-                            />
-                        </Stack>
-                        {/* END of stack for images */}
-                    </Stack>
-                    {/* START of stack for icon button like post comment */}
-                    <Stack
-                        sx={{
-                            width: "132px",
-                            height: "24px",
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "12px"
+                    ><Image
+                            src="/assets/icons/feeds/repost.svg"
+                            alt="repost"
+                            height={24}
+                            width={24}
+                            unoptimized
+                        />
+                    </IconButton>
+                </Stack>
 
-                        }}>
-                        <IconButton
-                            sx={{
-                                height: "24px",
-                                width: "24px",
-                            }}>
-                            <Image
-                                src="/assets/icons/feeds/active.svg"
-                                alt="like"
-                                height={24}
-                                width={24}
-                                unoptimized
-                            />
-                        </IconButton>
-                        <IconButton
-                            sx={{
-                                height: "24px",
-                                width: "24px",
-                            }}
-                        >
-                            <Image
-                                src="/assets/icons/feeds/Comment.svg"
-                                alt="like"
-                                height={24}
-                                width={24}
-                                unoptimized
-                            />
-                        </IconButton>
-                        <IconButton
-                            sx={{
-                                height: "24px",
-                                width: "24px",
-                            }}
-                        >
-                            <Image
-                                src="/assets/icons/feeds/repost.svg"
-                                alt="like"
-                                height={24}
-                                width={24}
-                                unoptimized
-                            />
-                        </IconButton>
-                        {/* END OF stack for icon button like post comment */}
-                    </Stack>
-                    {/* START stack fot comments and repost */}
-                    <Stack
-                        gap={'4px'}
-                        width={'148px'}
-                        height={'19px'}
-                        flexDirection={'row'}
-                        alignItems={'center'}
-                    ><Typography
+                {/* end for icon buttons like comment repost */}
+
+                {/* start for stack comeent and repost */}
+                <Stack gap={'4px'}
+
+                    flexDirection={'row'}
+                    alignItems={'center'}>
+                    <Typography
                         letterSpacing={-0.2}
                         sx={{
                             fontSize: '13px',
@@ -406,39 +283,158 @@ const Feeds = () => {
                         }}
                         color={myTheme.text.light.inactive}
                     >
-                            7 reposts
-                        </Typography>
-                        <Stack>
-                            <Image
-                                src="/assets/icons/misc/profile/Ellipse 5.svg"
-                                alt="dot"
-                                height={2}
-                                width={2}
-                                unoptimized
-                            />
-                        </Stack>
-
-                        <Typography
-                            letterSpacing={-0.2}
-                            sx={{
-                                fontSize: '13px',
-                                fontWeight: '400',
-                                lineHeight: '19px',
-                                letterSpacing: "-0.2px"
-                            }}
-                            color={myTheme.text.light.inactive}
-                        >
-                            59 comments
-                        </Typography>
-                        {/*END of stack for comments and repost */}
-                    </Stack>
+                        {details.repostsCount} reposts
+                    </Typography>
+                    <Image
+                        src="/assets/icons/misc/profile/Ellipse 5.svg"
+                        alt="dot"
+                        height={2}
+                        width={2}
+                        unoptimized
+                    />
+                    <Typography
+                        letterSpacing={-0.2}
+                        sx={{
+                            fontSize: '13px',
+                            fontWeight: '400',
+                            lineHeight: '19px',
+                            letterSpacing: "-0.2px"
+                        }}
+                        color={myTheme.text.light.inactive}
+                    >
+                        {details.commentsCount} Comment
+                    </Typography>
                 </Stack>
-                {/* end stack for the posts */}
+                {/* start for stack comeent and repost */}
             </Stack>
+            {/* end right content section -heading Caption imagees and like comment */}
+
         </Stack>
-        // {/* // end of the main stack */}
+
     )
 }
-export default Feeds
 
+function Feeds() {
+    return (
+        <Stack
+            spacing={'8px'}
+            // px={'8px'}
+            width={{
+                md: 596,
+                lg: 624,
+            }}
+            maxWidth={'100%'}
+        >
+            {/* new thread */}
+            <Stack
+                direction={'row'}
+                spacing={'12px'}
+                sx={{
+                    p: '16px 16px 16px 12px',
+                    borderRadius: '16px',
+                    bgcolor: '#fff',
+                    boxShadow: '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
+                    maxWidth: '100%',
+                    width: '100%',
+                }}
+            >
+                {/* avatar */}
+                <Stack
+                    sx={{
+                        position: 'relative',
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        overflow: 'hidden',
+                        border: '1px solid ',
+                        borderColor: grey[300],
+                    }}
+                >
+                    <Image
+                        src={'/assets/icons/profile/user1.jpg'}
+                        alt={'user1'}
+                        fill
+                        unoptimized
+                        style={{
+                            objectFit: 'cover',
+                        }}
+                    />
+                </Stack>
+                {/* end avatar */}
+
+                {/* input and buttons */}
+                <Stack width={'100%'} spacing={'8px'}>
+                    {/* input */}
+                    <TextField
+                        sx={{
+                            width: '100%',
+                            '& .MuiInputBase-root': {
+                                padding: '0px',
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '14px',
+                                lineHeight: '20px',
+                                fontWeight: '500',
+                            },
+                            "& fieldset": { border: "none" },
+                        }}
+                        id="standard-textarea"
+                        multiline
+                        maxRows={6}
+                        placeholder="Share something cool today"
+                        fullWidth
+                    />
+                    {/* end input */}
+
+                    {/* buttons */}
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                        {/* attach file */}
+                        <IconButton>
+                            <AttachFileIcon
+                                sx={{
+                                    transform: 'rotate(45deg)',
+                                    width: '24px',
+                                    height: '24px',
+                                }}
+                            />
+                        </IconButton>
+                        {/* end attach file */}
+
+                        {/* send */}
+                        <IconButton
+                            sx={{
+                                bgcolor: grey[200],
+                                alignSelf: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <SendOutlinedIcon
+                                sx={{
+                                    transform: 'rotate(-45deg)',
+                                    width: '16px',
+                                    height: '16px',
+                                }}
+                            />
+                        </IconButton>
+                    </Stack>
+                    {/* end buttons */}
+                </Stack>
+                {/* end input and buttons */}
+            </Stack>
+            {/* end new thread */}
+
+            {/* threads feed */}
+            <Stack spacing={'8px'}>
+                {/* thread */}{
+                    threadsList.map((thread, index) => (
+                        <Thread key={index} details={thread} />
+                    ))
+                }
+            </Stack>
+            {/* end threads feed */}
+        </Stack>
+    )
+}
+
+export default Feeds
 

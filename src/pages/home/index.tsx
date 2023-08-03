@@ -55,7 +55,7 @@ const HomePage = () => {
                         alignItems={'center'}
                     // pt={'16px'}
                     >
-                        <Feeds2 />
+                        <Feeds />
                     </Stack>
                     {/* end center container */}
                 </Stack>
