@@ -4,6 +4,7 @@ import Feeds from '@gossip/components/home/Feeds';
 import MainLayout from '@gossip/components/mainLayout';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import Feeds2 from '@gossip/components/home/Feeds2';
 
 const HomePage = () => {
     return (
@@ -51,11 +52,10 @@ const HomePage = () => {
                 >
                     {/* center container */}
                     <Stack
-                        direction={'row'}
                         alignItems={'center'}
-                        spacing={4}
+                    // pt={'16px'}
                     >
-                        <Feeds />
+                        <Feeds2 />
                     </Stack>
                     {/* end center container */}
                 </Stack>
