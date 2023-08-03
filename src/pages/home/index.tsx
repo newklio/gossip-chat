@@ -4,7 +4,6 @@ import Feeds from '@gossip/components/home/Feeds';
 import MainLayout from '@gossip/components/mainLayout';
 import { Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import Feeds2 from '@gossip/components/home/Feeds2';
 
 const HomePage = () => {
     return (
@@ -52,7 +51,7 @@ const HomePage = () => {
                 >
                     {/* center container */}
                     <Stack
-                        alignItems={'center'}
+
                     // pt={'16px'}
                     >
                         <Feeds />

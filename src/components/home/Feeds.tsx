@@ -73,7 +73,7 @@ const Thread = (
     }
 ) => {
     return (
-        <Stack
+        <Stack alignItems={'center'}
             direction={'row'}
             spacing={'12px'}
             sx={{
