@@ -44,7 +44,7 @@ const threadsList: ThreadDetails[] = [
     {
         username: 'Aura',
         time: '20 min',
-        avatar: '/assets/icons/feeds/Ellipse 1.svg',
+        avatar: '/assets/icons/profile/user1.jpg',
         content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
         tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
         repostsCount: 10,
@@ -53,8 +53,8 @@ const threadsList: ThreadDetails[] = [
     {
         username: 'Aman Singh',
         time: '1 min',
-        avatar: '/assets/icons/feeds/Ellipse 12.svg',
-        content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
+        avatar: '/assets/icons/feeds/Ellipse 1.svg',
+        content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
         tags: ["#full - stack", "#amanTech", "#BeyondExcited"],
         images: [
             "/assets/icons/Gossip.svg",
@@ -139,73 +139,76 @@ const Thread = (
             {/* right content section -heading Caption imagees and like comment */}
             <Stack direction={"column"} gap={"12px"} width={'100%'}
             >
-                {/* heading */}
-                <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                    {/* user name */}
+                <Stack direction={"column"} gap={"6px"} >
+                    {/* heading */}
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                        {/* user name */}
+                        <Typography
+                            sx={{
+                                fontSize: "14px",
+                                lineHeight: "19px",
+                                fontWeight: "600",
+                            }}>
+                            {details.username}
+                        </Typography>
+                        {/* end user name */}
+
+                        {/* time and options */}
+                        <Stack direction={'row'} alignItems={'center'} spacing={'16px'}>
+                            {/* time */}
+                            <Typography
+                                fontSize={"12px"}
+                                lineHeight={"19px"}
+                                fontWeight={400}
+                                color={myTheme.text.light.inactive}
+                            >
+                                {details.time}
+                            </Typography>
+                            {/* end time */}
+
+                            {/* option icon */}
+                            <IconButton
+                                sx={{
+                                    width: '24px',
+                                    height: '24px',
+                                }}
+                            >
+                                <MoreHorizIcon
+                                    sx={{
+                                        color: grey[900],
+                                    }}
+                                />
+                            </IconButton>
+                        </Stack>
+                    </Stack>
+                    {/* end heading */}
+                    {/* start caption */}
                     <Typography
                         sx={{
-                            fontSize: "14px",
+                            fontSize: "13px",
                             lineHeight: "19px",
-                            fontWeight: "600",
-                        }}>
-                        {details.username}
+                            fontWeight: "400",
+                            color: "#000000",
+                        }}
+                    > {details.content}
                     </Typography>
-                    {/* end user name */}
+                    {/* end caption */}
+                    {/* start tags */}
 
-                    {/* time and options */}
-                    <Stack direction={'row'} alignItems={'center'} spacing={'16px'}>
-                        {/* time */}
-                        <Typography
-                            fontSize={"12px"}
-                            lineHeight={"19px"}
-                            fontWeight={400}
-                            color={myTheme.text.light.inactive}
-                        >
-                            {details.time}
-                        </Typography>
-                        {/* end time */}
-
-                        {/* option icon */}
-                        <IconButton
-                            sx={{
-                                width: '24px',
-                                height: '24px',
-                            }}
-                        >
-                            <MoreHorizIcon
-                                sx={{
-                                    color: grey[900],
-                                }}
-                            />
-                        </IconButton>
-                    </Stack>
+                    <Typography
+                        sx={{
+                            fontSize: "13px",
+                            lineHeight: "19px",
+                            fontWeight: "400",
+                            color: "#03A9F4",
+                        }}
+                    >{details.tags?.map((tag, index) => (
+                        <span key={index} style={{ padding: '3px' }}>
+                            {tag}
+                        </span>
+                    ))}
+                    </Typography>
                 </Stack>
-                {/* end heading */}
-                {/* start caption */}
-                <Typography
-                    sx={{
-                        fontSize: "13px",
-                        lineHeight: "19px",
-                        fontWeight: "400",
-                        color: "#000000",
-                    }}
-                > {details.content}
-                </Typography>
-                {/* end caption */}
-                {/* start tags */}
-                <Typography
-                    sx={{
-                        fontSize: "13px",
-                        lineHeight: "19px",
-                        fontWeight: "400",
-                        color: "#03A9F4",
-                    }}
-                >{details.tags?.map((tag, index) => (
-                    <span key={index} style={{ marginRight: '6px' }}>
-                        {tag}
-                    </span>
-                ))}
-                </Typography>
                 {/* end tags */}
 
                 {/* start for images */}
