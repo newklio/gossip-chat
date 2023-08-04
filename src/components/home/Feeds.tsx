@@ -203,9 +203,9 @@ const Thread = (
                             color: "#03A9F4",
                         }}
                     >{details.tags?.map((tag, index) => (
-                        <span key={index} style={{ padding: '3px' }}>
+                        <Stack key={index} style={{ padding: '3px' }}>
                             {tag}
-                        </span>
+                        </Stack>
                     ))}
                     </Typography>
                 </Stack>

@@ -11,12 +11,12 @@ const MainLayout = (
         title,
         children,
         showProfile = true,
-        shwoTrends = true
+        showTrends = true
     }: {
         title: string,
         children: React.ReactNode
         showProfile?: boolean
-        shwoTrends?: boolean
+        showTrends?: boolean
     }
 ) => {
     return (
@@ -80,7 +80,7 @@ const MainLayout = (
 
                     {/* left section */}
                     {
-                        shwoTrends &&
+                        showTrends &&
 
                         <Stack
                             // py={'16px'}
