@@ -1,8 +1,9 @@
-import { Avatar, Badge, Chip, Stack, Typography } from '@mui/material'
+import { Avatar, Badge, Button, Chip, Stack, Typography } from '@mui/material'
 import React from 'react'
 import Image from 'next/image'
 
 import { font, myTheme } from '@gossip/theme'
+import { grey } from '@mui/material/colors'
 
 const Profile = () => {
     return (
@@ -25,7 +26,7 @@ const Profile = () => {
                     }
                 >
                     <Avatar
-                        src="/assets/icons/misc/profile/Ellipse 12.svg"
+                        src="assets/icons/profile/user5.jpg"
                         alt="profileimg"
                         sx={{ width: '64px', height: '64px' }}
                     />
@@ -81,7 +82,7 @@ const Profile = () => {
                             textTransform: 'none',
                             bgcolor: '#EEEEEE',
                         }}
-                        // color={myTheme.text.light.inactive}
+                    // color={myTheme.text.light.inactive}
                     >
                         threads.net
                     </Typography>
@@ -169,6 +170,29 @@ const Profile = () => {
                     456 following
                 </Typography>
             </Stack>
+            <Button
+                sx={{
+                    borderRadius: '999px',
+                    bgcolor: grey[900],
+                    color: myTheme.text.dark.active,
+                    fontSize: '14px',
+                    fontsize: "13px",
+                    fontWeight: 500,
+                    lineHeight: '19px',
+                    paddingY: "8px",
+                    width: "100%",
+                    height: 32,
+                    '&:hover': {
+                        opacity: 0.8,
+                        bgcolor: grey[900],
+                    }
+                }}
+                variant="text"
+                type="submit"
+            >
+                Log Out
+            </Button>
+
             {/* // start of profile stack for followers and following*/}
             {/* // end of main stack*/}
         </Stack>

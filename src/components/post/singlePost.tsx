@@ -7,177 +7,82 @@ import Image from 'next/image';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
+import { PostComment, CommentList } from '@gossip/components/post/Postcomment'
+import { useRouter } from 'next/router';
 
-
-interface CommentDetails {
+interface SingleThreadDetails {
+    id: string,
     username: string,
     time: string,
     avatar: string,
     content: string,
-    likeCount?: number,
+    tags?: string[],
+    images?: string[],
+    repostsCount?: number,
+    commentsCount?: number,
 }
 
-const CommentList: CommentDetails[] = [
-    {
-        username: "Deepak Yadu",
-        time: "2min",
-        avatar: '/assets/icons/misc/profile/Ellipse 12.svg',
-        content: "I’ve been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please",
-        likeCount: 25,
-    },
-    {
-        username: "John Walker",
-        time: "2min",
-        avatar: '/assets/icons/profile/user1.jpg',
-        content: "I love seeing your creations, would you like to collaborate with me for our next project. It will be fun.",
-        likeCount: 112,
-    },
+const SinglepostList: SingleThreadDetails[] = [
 
+    {
+        id: "user1",
+        username: 'aura',
+        time: '2h',
+        avatar: '/assets/icons/profile/user 2.jpg',
+        content: 'I have been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please',
+        tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
+        images: [
+            "/assets/icons/feeds/Rectangle 8.jpg", "/assets/icons/feeds/Rectangle 9.jpg"
+
+        ],
+        repostsCount: 10,
+        commentsCount: 20,
+    },
+    {
+        id: "user2",
+        username: 'dk404',
+        time: '2 min',
+        avatar: '/assets/icons/profile/user 4.jpg',
+        content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
+        tags: ["#full - stack", "#frontend", "#figma"],
+        repostsCount: 7,
+        commentsCount: 59,
+    },
+    {
+        id: "user3",
+        username: 'Aura',
+        time: '20 min',
+        avatar: '/assets/icons/profile/user1.jpg',
+        content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
+        tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
+        repostsCount: 10,
+        commentsCount: 59,
+    },
+    {
+        id: "user4",
+        username: 'Aman Singh',
+        time: '1 min',
+        avatar: '/assets/icons/profile/user 5.jpg',
+        content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
+        tags: ["#full - stack", "#amanTech", "#BeyondExcited"],
+        images: [
+            "/assets/icons/Gossip.svg",
+        ],
+        repostsCount: 100,
+        commentsCount: 509,
+    },
 ]
 
-const SinglePost = (
+
+
+const SingleFeed = (
     {
-        details
+        post
     }: {
-        details: CommentDetails
+        post: SingleThreadDetails
     }
 ) => {
-    return (
-        <Stack>
-            {/* start of stack for the list of comments */}
-            <Stack alignItems={'center'}
-                direction={'row'}
-                spacing={'12px'}
-                borderBottom={"1px solid #E0E0E0"}
-                sx={{
-                    p: '16px 16px 16px 12px',
-                    borderRadius: '16px',
-                    bgcolor: '#fff',
-                    maxWidth: '100%',
-                    width: '100%',
-                    // height: 300,
-                }}
-            >
-                {/* left avatar section */}
-                <Stack
-                    spacing={'16px'}
-                    sx={{
-                        alignItems: 'center',
-                        alignSelf: 'stretch',
-                        maxWidth: '100%',
-                    }}
-                >
-                    {/* avatar  */}
-                    <Badge>
-                        <Avatar
-                            src={details.avatar}
-                            alt="postprofileimg"
-                            sx={{ width: '36px', height: '36px' }}
-                        />
-                    </Badge>
-                    {/* end avatar  */}
-
-                </Stack>
-                {/* end left avatar section */}
-
-                {/* right content section - */}
-                <Stack direction={"column"} gap={"12px"} width={'100%'}
-                >
-                    <Stack direction={"column"} gap={"6px"} >
-                        {/* heading */}
-                        <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                            {/* user name */}
-                            <Typography
-                                sx={{
-                                    fontSize: "14px",
-                                    lineHeight: "19px",
-                                    fontWeight: "600",
-                                }}>
-                                {details.username}
-                            </Typography>
-                            {/* end user name */}
-
-                            {/* time and options */}
-                            <Stack direction={'row'} alignItems={'center'} spacing={'16px'}>
-                                {/* time */}
-                                <Typography
-                                    fontSize={"12px"}
-                                    lineHeight={"19px"}
-                                    fontWeight={400}
-                                    color={myTheme.text.light.inactive}
-                                >
-                                    {details.time}
-                                </Typography>
-                                {/* end time */}
-
-                                {/* option icon */}
-                                <IconButton
-                                    sx={{
-                                        width: '24px',
-                                        height: '24px',
-                                    }}
-                                >
-                                    <MoreHorizIcon
-                                        sx={{
-                                            color: grey[900],
-                                        }}
-                                    />
-                                </IconButton>
-                            </Stack>
-                        </Stack>
-                        {/* end heading */}
-                        {/* start comment */}
-                        <Typography
-                            sx={{
-                                fontSize: "13px",
-                                lineHeight: "19px",
-                                fontWeight: "400",
-                                color: "#000000",
-                            }}
-                        > {details.content}
-                        </Typography>
-                        {/* end comment */}
-
-                        <Stack
-                            alignItems={"center"}
-                            gap={"8px"}
-                            direction={"row"}
-                        >
-                            <Typography
-                                fontSize={"13px"}
-                                fontWeight={400}
-                                lineHeight={"19px"}
-                            >
-                                {details.likeCount}
-                            </Typography>
-                            <IconButton
-                                sx={{
-                                    width: '24px',
-                                    height: '24px',
-                                }}
-                            >
-                                <FavoriteSharpIcon
-                                    sx={{
-                                        color: "#E91E63",
-                                        // backgroundColor: "#E91E63"
-                                    }}
-                                />
-                            </IconButton>
-
-                        </Stack>
-
-                    </Stack>
-                </Stack>
-            </Stack>
-            {/* end of stack for the list of comments */}
-
-        </Stack>
-    )
-}
-
-
-
-function singlefeed() {
+    const router = useRouter()
     return (
         <Stack direction={'column'}
             alignItems={"flex-start"}
@@ -188,13 +93,14 @@ function singlefeed() {
                 alignItems={"center"}
                 direction={"row"}
             >
-                <IconButton>
+                <IconButton onClick={() => router.back()}>
                     <ArrowBackSharpIcon
                         sx={{
                             color: grey[900],
                             width: '32px',
                             height: '32px',
                         }}
+
                     />
                 </IconButton>
                 <Typography
@@ -205,6 +111,8 @@ function singlefeed() {
                 </Typography>
             </Stack>
 
+
+
             <Stack alignItems={'center'}
                 direction={'row'}
                 spacing={'12px'}
@@ -214,8 +122,8 @@ function singlefeed() {
                     bgcolor: '#fff',
                     boxShadow: '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
                     maxWidth: '100%',
-                    width: '100%',
-                    // height: 300,
+                    width: '624 ',
+
                 }}
             >
                 {/* left avatar section */}
@@ -242,7 +150,7 @@ function singlefeed() {
                         }
                     >
                         <Avatar
-                            src="/assets/icons/feeds/Ellipse 1.svg"
+                            src={post.avatar}
                             alt="postprofileimg"
                             sx={{ width: '36px', height: '36px' }}
                         />
@@ -281,7 +189,7 @@ function singlefeed() {
                                     lineHeight: "19px",
                                     fontWeight: "600",
                                 }}>
-                                aura
+                                {post.username}
                             </Typography>
                             {/* end user name */}
 
@@ -294,7 +202,7 @@ function singlefeed() {
                                     fontWeight={400}
                                     color={myTheme.text.light.inactive}
                                 >
-                                    2min
+                                    {post.time}
                                 </Typography>
                                 {/* end time */}
 
@@ -322,7 +230,7 @@ function singlefeed() {
                                 fontWeight: "400",
                                 color: "#000000",
                             }}
-                        > I’ve been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please
+                        > {post.content}
                         </Typography>
                         {/* end caption */}
                         {/* start tags */}
@@ -334,27 +242,26 @@ function singlefeed() {
                                 fontWeight: "400",
                                 color: "#03A9F4",
                             }}
-                        > #full-stack #frontend #figma
+                        > {post.tags?.map((tag, index) => (
+                            <Stack key={index} style={{ padding: '3px' }}>
+                                {tag}
+                            </Stack>
+                        ))}
                         </Typography>
                     </Stack>
                     {/* end tags */}
 
                     {/* start for images */}
-                    <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'}>
-
-                        <Image
-                            src="/assets/icons/feeds/Rectangle 8.jpg"
-                            alt="rectnagleimage"
-                            width={"238"}
-                            height={"230"}
-                        />
-                        <Image
-                            src="/assets/icons/feeds/Rectangle 9.jpg"
-                            alt="rectnagleimage"
-                            width={"238"}
-                            height={"230"}
-                        />
-
+                    <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'} flexWrap={'wrap'}>
+                        {post.images?.map((imgSrc, index) => (
+                            <Image
+                                key={index} // Make sure to provide a unique key for each image
+                                src={imgSrc}
+                                alt={`Image ${index + 1}`}
+                                width={"238"}
+                                height={"230"}
+                            />
+                        ))}
                     </Stack>
                     {/* end for images */}
                     {/* start for icon buttons like comment repost */}
@@ -419,7 +326,7 @@ function singlefeed() {
                             }}
                             color={myTheme.text.light.inactive}
                         >
-                            7 reposts
+                            {post.repostsCount} repost
                         </Typography>
                         <Image
                             src="/assets/icons/misc/profile/Ellipse 5.svg"
@@ -438,7 +345,7 @@ function singlefeed() {
                             }}
                             color={myTheme.text.light.inactive}
                         >
-                            59 Comment
+                            {post.commentsCount} comments
                         </Typography>
                     </Stack>
                     {/* start to add comment textfiled */}
@@ -520,7 +427,7 @@ function singlefeed() {
                         spacing={'8px'}
                     >{
                             CommentList.map((comment, index) => (
-                                <SinglePost
+                                <PostComment
                                     key={index} details={comment} />
                             ))
                         }
@@ -554,4 +461,4 @@ function singlefeed() {
     )
 }
 
-export default singlefeed
+export default SingleFeed

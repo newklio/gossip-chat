@@ -1,4 +1,3 @@
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import { Avatar, Badge, IconButton, Stack, TextField, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -6,8 +5,11 @@ import Image from 'next/image';
 import { myTheme } from '@gossip/theme';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { useRouter } from 'next/router';
 
 interface ThreadDetails {
+    id: string,
     username: string,
     time: string,
     avatar: string,
@@ -19,10 +21,12 @@ interface ThreadDetails {
 }
 
 const threadsList: ThreadDetails[] = [
+
     {
+        id: "user1",
         username: 'aura',
         time: '2h',
-        avatar: '/assets/icons/profile/user1.jpg',
+        avatar: '/assets/icons/profile/user 2.jpg',
         content: 'I have been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please',
         tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
         images: [
@@ -33,15 +37,17 @@ const threadsList: ThreadDetails[] = [
         commentsCount: 20,
     },
     {
+        id: "user2",
         username: 'dk404',
         time: '2 min',
-        avatar: '/assets/icons/misc/profile/Ellipse 12.svg',
+        avatar: '/assets/icons/profile/user 4.jpg',
         content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
         tags: ["#full - stack", "#frontend", "#figma"],
         repostsCount: 7,
         commentsCount: 59,
     },
     {
+        id: "user3",
         username: 'Aura',
         time: '20 min',
         avatar: '/assets/icons/profile/user1.jpg',
@@ -51,9 +57,10 @@ const threadsList: ThreadDetails[] = [
         commentsCount: 59,
     },
     {
+        id: "user4",
         username: 'Aman Singh',
         time: '1 min',
-        avatar: '/assets/icons/feeds/Ellipse 1.svg',
+        avatar: '/assets/icons/profile/user 5.jpg',
         content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
         tags: ["#full - stack", "#amanTech", "#BeyondExcited"],
         images: [
@@ -72,10 +79,12 @@ const Thread = (
         details: ThreadDetails
     }
 ) => {
+    const router = useRouter()
     return (
         <Stack alignItems={'center'}
             direction={'row'}
             spacing={'12px'}
+
             sx={{
                 p: '16px 16px 16px 12px',
                 borderRadius: '16px',
@@ -83,8 +92,15 @@ const Thread = (
                 boxShadow: '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
                 maxWidth: '100%',
                 width: '100%',
-                // height: 300,
+                '&:hover': {
+                    opacity: 1,
+                    bgcolor: grey[200],
+                },
+                cursor: 'pointer'
+
             }}
+
+            onClick={() => router.push(`/thread/${details.id}`)}
         >
             {/* left avatar section */}
             <Stack
@@ -212,7 +228,7 @@ const Thread = (
                 {/* end tags */}
 
                 {/* start for images */}
-                <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'}>
+                <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'} flexWrap={'wrap'}>
                     {details.images?.map((imgSrc, index) => (
                         <Image
                             key={index} // Make sure to provide a unique key for each image
