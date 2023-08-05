@@ -1,13 +1,13 @@
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-import { Avatar, Badge, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Avatar, Badge, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import Image from 'next/image';
 import { myTheme } from '@gossip/theme';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { useRouter } from 'next/router';
-
+import { StackedBarChartSharp } from '@mui/icons-material';
 interface ThreadDetails {
     id: string,
     username: string,
@@ -19,19 +19,16 @@ interface ThreadDetails {
     repostsCount?: number,
     commentsCount?: number,
 }
-
 const threadsList: ThreadDetails[] = [
-
     {
         id: "user1",
         username: 'aura',
         time: '2h',
-        avatar: '/assets/icons/profile/user 2.jpg',
+        avatar: '/assets/icons/profile/user1.jpg',
         content: 'I have been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please',
         tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
         images: [
             "/assets/icons/feeds/Rectangle 8.jpg", "/assets/icons/feeds/Rectangle 9.jpg"
-
         ],
         repostsCount: 10,
         commentsCount: 20,
@@ -70,8 +67,6 @@ const threadsList: ThreadDetails[] = [
         commentsCount: 509,
     },
 ]
-
-
 const Thread = (
     {
         details
@@ -81,10 +76,10 @@ const Thread = (
 ) => {
     const router = useRouter()
     return (
+
         <Stack alignItems={'center'}
             direction={'row'}
             spacing={'12px'}
-
             sx={{
                 p: '16px 16px 16px 12px',
                 borderRadius: '16px',
@@ -97,9 +92,7 @@ const Thread = (
                     bgcolor: grey[200],
                 },
                 cursor: 'pointer'
-
             }}
-
             onClick={() => router.push(`/thread/${details.id}`)}
         >
             {/* left avatar section */}
@@ -181,7 +174,6 @@ const Thread = (
                                 {details.time}
                             </Typography>
                             {/* end time */}
-
                             {/* option icon */}
                             <IconButton
                                 sx={{
@@ -210,20 +202,20 @@ const Thread = (
                     </Typography>
                     {/* end caption */}
                     {/* start tags */}
-
-                    <Typography
-                        sx={{
-                            fontSize: "13px",
-                            lineHeight: "19px",
-                            fontWeight: "400",
-                            color: "#03A9F4",
-                        }}
+                    <Stack
                     >{details.tags?.map((tag, index) => (
-                        <Stack key={index} style={{ padding: '3px' }}>
+                        <Typography
+                            sx={{
+                                fontSize: "13px",
+                                lineHeight: "19px",
+                                fontWeight: "400",
+                                color: "#03A9F4",
+                            }}
+                            key={index}>
                             {tag}
-                        </Stack>
+                        </Typography>
                     ))}
-                    </Typography>
+                    </Stack>
                 </Stack>
                 {/* end tags */}
 
@@ -236,6 +228,7 @@ const Thread = (
                             alt={`Image ${index + 1}`}
                             width={"238"}
                             height={"230"}
+                            unoptimized
                         />
                     ))}
                 </Stack>
@@ -285,12 +278,9 @@ const Thread = (
                         />
                     </IconButton>
                 </Stack>
-
                 {/* end for icon buttons like comment repost */}
-
                 {/* start for stack comeent and repost */}
                 <Stack gap={'4px'}
-
                     flexDirection={'row'}
                     alignItems={'center'}>
                     <Typography
@@ -327,12 +317,9 @@ const Thread = (
                 {/* start for stack comeent and repost */}
             </Stack>
             {/* end right content section -heading Caption imagees and like comment */}
-
         </Stack>
-
     )
 }
-
 function Feeds() {
     return (
         <Stack
@@ -380,7 +367,6 @@ function Feeds() {
                     />
                 </Stack>
                 {/* end avatar */}
-
                 {/* input and buttons */}
                 <Stack width={'100%'} spacing={'8px'}>
                     {/* input */}
@@ -404,7 +390,6 @@ function Feeds() {
                         fullWidth
                     />
                     {/* end input */}
-
                     {/* buttons */}
                     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
                         {/* attach file */}
@@ -418,7 +403,6 @@ function Feeds() {
                             />
                         </IconButton>
                         {/* end attach file */}
-
                         {/* send */}
                         <IconButton
                             sx={{
@@ -441,7 +425,6 @@ function Feeds() {
                 {/* end input and buttons */}
             </Stack>
             {/* end new thread */}
-
             {/* threads feed */}
             <Stack spacing={'8px'}>
                 {/* thread */}{
@@ -454,6 +437,4 @@ function Feeds() {
         </Stack>
     )
 }
-
 export default Feeds
-

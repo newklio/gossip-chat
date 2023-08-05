@@ -9,77 +9,15 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 import { PostComment, CommentList } from '@gossip/components/post/Postcomment'
 import { useRouter } from 'next/router';
-
-interface SingleThreadDetails {
-    id: string,
-    username: string,
-    time: string,
-    avatar: string,
-    content: string,
-    tags?: string[],
-    images?: string[],
-    repostsCount?: number,
-    commentsCount?: number,
-}
-
-const SinglepostList: SingleThreadDetails[] = [
-
-    {
-        id: "user1",
-        username: 'aura',
-        time: '2h',
-        avatar: '/assets/icons/profile/user 2.jpg',
-        content: 'I have been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please',
-        tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
-        images: [
-            "/assets/icons/feeds/Rectangle 8.jpg", "/assets/icons/feeds/Rectangle 9.jpg"
-
-        ],
-        repostsCount: 10,
-        commentsCount: 20,
-    },
-    {
-        id: "user2",
-        username: 'dk404',
-        time: '2 min',
-        avatar: '/assets/icons/profile/user 4.jpg',
-        content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
-        tags: ["#full - stack", "#frontend", "#figma"],
-        repostsCount: 7,
-        commentsCount: 59,
-    },
-    {
-        id: "user3",
-        username: 'Aura',
-        time: '20 min',
-        avatar: '/assets/icons/profile/user1.jpg',
-        content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
-        tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
-        repostsCount: 10,
-        commentsCount: 59,
-    },
-    {
-        id: "user4",
-        username: 'Aman Singh',
-        time: '1 min',
-        avatar: '/assets/icons/profile/user 5.jpg',
-        content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
-        tags: ["#full - stack", "#amanTech", "#BeyondExcited"],
-        images: [
-            "/assets/icons/Gossip.svg",
-        ],
-        repostsCount: 100,
-        commentsCount: 509,
-    },
-]
+import { DetailedThread } from "../../pages/thread/[id]"
 
 
 
 const SingleFeed = (
     {
-        post
+        detial_post
     }: {
-        post: SingleThreadDetails
+        detial_post: DetailedThread
     }
 ) => {
     const router = useRouter()
@@ -110,8 +48,6 @@ const SingleFeed = (
                 >Gossip Topic
                 </Typography>
             </Stack>
-
-
 
             <Stack alignItems={'center'}
                 direction={'row'}
@@ -150,7 +86,7 @@ const SingleFeed = (
                         }
                     >
                         <Avatar
-                            src={post.avatar}
+                            src={detial_post.avatar}
                             alt="postprofileimg"
                             sx={{ width: '36px', height: '36px' }}
                         />
@@ -189,7 +125,7 @@ const SingleFeed = (
                                     lineHeight: "19px",
                                     fontWeight: "600",
                                 }}>
-                                {post.username}
+                                {detial_post.username}
                             </Typography>
                             {/* end user name */}
 
@@ -202,7 +138,7 @@ const SingleFeed = (
                                     fontWeight={400}
                                     color={myTheme.text.light.inactive}
                                 >
-                                    {post.time}
+                                    {detial_post.time}
                                 </Typography>
                                 {/* end time */}
 
@@ -230,36 +166,38 @@ const SingleFeed = (
                                 fontWeight: "400",
                                 color: "#000000",
                             }}
-                        > {post.content}
+                        > {detial_post.content}
                         </Typography>
                         {/* end caption */}
                         {/* start tags */}
 
-                        <Typography
-                            sx={{
-                                fontSize: "13px",
-                                lineHeight: "19px",
-                                fontWeight: "400",
-                                color: "#03A9F4",
-                            }}
-                        > {post.tags?.map((tag, index) => (
-                            <Stack key={index} style={{ padding: '3px' }}>
+                        <Stack
+                        >{detial_post.tags?.map((tag, index) => (
+                            <Typography
+                                sx={{
+                                    fontSize: "13px",
+                                    lineHeight: "19px",
+                                    fontWeight: "400",
+                                    color: "#03A9F4",
+                                }}
+                                key={index}>
                                 {tag}
-                            </Stack>
+                            </Typography>
                         ))}
-                        </Typography>
+                        </Stack>
                     </Stack>
                     {/* end tags */}
 
                     {/* start for images */}
                     <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'} flexWrap={'wrap'}>
-                        {post.images?.map((imgSrc, index) => (
+                        {detial_post.images?.map((imgSrc, index) => (
                             <Image
                                 key={index} // Make sure to provide a unique key for each image
                                 src={imgSrc}
                                 alt={`Image ${index + 1}`}
                                 width={"238"}
                                 height={"230"}
+                                unoptimized
                             />
                         ))}
                     </Stack>
@@ -288,7 +226,7 @@ const SingleFeed = (
                         >
                             <Image
                                 src="/assets/icons/feeds/Comment.svg"
-                                alt="commet"
+                                alt="comment"
                                 height={24}
                                 width={24}
                                 unoptimized
@@ -326,7 +264,7 @@ const SingleFeed = (
                             }}
                             color={myTheme.text.light.inactive}
                         >
-                            {post.repostsCount} repost
+                            {detial_post.repostsCount} Resposts
                         </Typography>
                         <Image
                             src="/assets/icons/misc/profile/Ellipse 5.svg"
@@ -345,7 +283,7 @@ const SingleFeed = (
                             }}
                             color={myTheme.text.light.inactive}
                         >
-                            {post.commentsCount} comments
+                            {detial_post.commentsCount} Comment
                         </Typography>
                     </Stack>
                     {/* start to add comment textfiled */}

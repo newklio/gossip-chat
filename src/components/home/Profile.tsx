@@ -26,7 +26,7 @@ const Profile = () => {
                     }
                 >
                     <Avatar
-                        src="assets/icons/profile/user5.jpg"
+                        src="/assets/icons/profile/user5.jpg"
                         alt="profileimg"
                         sx={{ width: '64px', height: '64px' }}
                     />
