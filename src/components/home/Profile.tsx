@@ -1,11 +1,28 @@
 import { Avatar, Badge, Button, Chip, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { font, myTheme } from '@gossip/theme'
 import { grey } from '@mui/material/colors'
+import { RootState } from '@gossip/globals/store'
+import { setUser } from '@gossip/globals/reducers/users'
 
 const Profile = () => {
+    const user = useSelector((state: RootState) => state.user)
+    const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         dispatch(
+    //             setUser({
+    //                 fullname: 'Deepak Yadu',
+    //                 uid: 'dk404found',
+    //                 email: 'deepak@gmail.com',
+    //             }),
+    //         )
+    //     }, 4000)
+    // }, [dispatch])
+
     return (
         // <div>Home profile</div>
 
@@ -49,7 +66,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        Deepak Yadu
+                        {user.fullname}
                     </Typography>
                 </Stack>
 
@@ -82,7 +99,7 @@ const Profile = () => {
                             textTransform: 'none',
                             bgcolor: '#EEEEEE',
                         }}
-                    // color={myTheme.text.light.inactive}
+                        // color={myTheme.text.light.inactive}
                     >
                         threads.net
                     </Typography>
@@ -123,7 +140,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        deepak@newklio.com
+                        {user.email}
                     </Typography>
                 </Stack>
             </Stack>
@@ -176,16 +193,16 @@ const Profile = () => {
                     bgcolor: grey[900],
                     color: myTheme.text.dark.active,
                     fontSize: '14px',
-                    fontsize: "13px",
+                    fontsize: '13px',
                     fontWeight: 500,
                     lineHeight: '19px',
-                    paddingY: "8px",
-                    width: "100%",
+                    paddingY: '8px',
+                    width: '100%',
                     height: 32,
                     '&:hover': {
                         opacity: 0.8,
                         bgcolor: grey[900],
-                    }
+                    },
                 }}
                 variant="text"
                 type="submit"
