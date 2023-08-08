@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useCallback, useState } from 'react'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
+import useAlert from './useAlert'
 
 const schema = z.object({
     email: z.string().email(),
@@ -22,6 +23,7 @@ console.log(Server)
 export const SignLog = () => {
     const [checked, setChecked] = useState(false)
     const [ShowPassword, setShowPassword] = useState(false)
+    const { openAlert } = useAlert()
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +46,7 @@ export const SignLog = () => {
         var myHeaders = new Headers()
         myHeaders.append('Content-Type', 'application/json')
         var raw = JSON.stringify(formData)
+
         fetch(`${Server}/onboarding/login`, {
             method: 'POST',
             headers: myHeaders,
@@ -56,18 +59,24 @@ export const SignLog = () => {
 
                 // if the response status is 200, we redirect to the login page
                 if (response.status === 200) {
-                    alert('logged in successfully')
+                    openAlert('Logged In Successfully', 'success')
 
                     router.push('/home')
                 }
                 // if the response status is 400, we display the error message
                 else {
-                    alert(LoginData.message || 'An error occured')
+                    openAlert(
+                        LoginData.message || 'Something went wrong',
+                        'error',
+                    )
                 }
             })
 
             // if the request fails, we log the error
-            .catch((error) => console.log('error', error))
+            .catch((error) => {
+                openAlert(error.message, 'error')
+                console.log(error)
+            })
     })
 
     return {

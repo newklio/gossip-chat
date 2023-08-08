@@ -13,7 +13,7 @@ const initialState: User = {
     email: 'hitika@gmail.com',
 }
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
