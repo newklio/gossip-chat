@@ -17,6 +17,7 @@ const LoginPage = () => {
         ShowPassword,
         setShowPassword,
         setChecked,
+        router,
     } = SignLog()
 
     useEffect(() => {
@@ -341,6 +342,9 @@ const LoginPage = () => {
                             fontWeight: 400,
                             color: myTheme.color.primary[500],
                             textTransform: 'none',
+                        }}
+                        onClick={() => {
+                            router.push('/signup')
                         }}
                     >
                         Sign up
