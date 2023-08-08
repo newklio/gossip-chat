@@ -89,5 +89,6 @@ export const SignLog = () => {
         SubmitData,
         ShowPassword,
         setShowPassword,
+        router,
     }
 }

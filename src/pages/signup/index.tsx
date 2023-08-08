@@ -19,6 +19,7 @@ const Signup = () => {
         setChecked,
         ShowPassword,
         setShowPassword,
+        router,
     } = Signpage()
 
     return (
@@ -426,6 +427,9 @@ const Signup = () => {
                                 textTransform: 'none',
                                 gap: '8px',
                                 padding: '4px 8px',
+                            }}
+                            onClick={() => {
+                                router.push('/login')
                             }}
                         >
                             Login
