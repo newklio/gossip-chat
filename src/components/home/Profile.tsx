@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
 import { font, myTheme } from '@gossip/theme'
 import { grey } from '@mui/material/colors'
-import { selectAuth } from '@gossip/globals/reducers/auth'
+import { logout, selectAuth } from '@gossip/globals/reducers/auth'
+import { setAlert } from '@gossip/globals/reducers/Alerts'
 
 const Profile = () => {
     const auth = useSelector(selectAuth)
@@ -205,6 +206,15 @@ const Profile = () => {
                 }}
                 variant="text"
                 type="submit"
+                onClick={() => {
+                    dispatch(logout())
+                    dispatch(
+                        setAlert({
+                            message: 'Logged Out Successfully',
+                            severity: 'success',
+                        }),
+                    )
+                }}
             >
                 Log Out
             </Button>
