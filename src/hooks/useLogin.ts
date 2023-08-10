@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
 import useAlert from './useAlert'
-import { useDispatch } from 'react-redux'
-import { login } from '@gossip/globals/reducers/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, logout, selectAuth } from '@gossip/globals/reducers/auth'
 import { User } from '@gossip/types/users'
 
 const schema = z.object({
@@ -28,6 +28,17 @@ export const useLogin = () => {
     const [ShowPassword, setShowPassword] = useState(false)
     const dispatch = useDispatch()
     const { openAlert } = useAlert()
+
+    const auth = useSelector(selectAuth)
+
+    useEffect(() => {
+        if (!auth.authenticated) {
+            dispatch(logout())
+        } else if (auth.authenticated) {
+            router.push('/home')
+            openAlert('user is already Logged in', 'success')
+        }
+    }, [auth.authenticated, dispatch])
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
