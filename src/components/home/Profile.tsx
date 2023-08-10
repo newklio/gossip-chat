@@ -4,11 +4,11 @@ import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
 import { font, myTheme } from '@gossip/theme'
 import { grey } from '@mui/material/colors'
-import { RootState } from '@gossip/globals/store'
-import { setUser } from '@gossip/globals/reducers/users'
+import { logout, selectAuth } from '@gossip/globals/reducers/auth'
+import { setAlert } from '@gossip/globals/reducers/Alerts'
 
 const Profile = () => {
-    const user = useSelector((state: RootState) => state.user)
+    const auth = useSelector(selectAuth)
     const dispatch = useDispatch()
 
     // useEffect(() => {
@@ -66,7 +66,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        {user.fullname}
+                        {auth.user.fullname}
                     </Typography>
                 </Stack>
 
@@ -140,7 +140,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        {user.email}
+                        {auth.user.email}
                     </Typography>
                 </Stack>
             </Stack>
@@ -206,6 +206,15 @@ const Profile = () => {
                 }}
                 variant="text"
                 type="submit"
+                onClick={() => {
+                    dispatch(logout())
+                    dispatch(
+                        setAlert({
+                            message: 'Logged Out Successfully',
+                            severity: 'success',
+                        }),
+                    )
+                }}
             >
                 Log Out
             </Button>

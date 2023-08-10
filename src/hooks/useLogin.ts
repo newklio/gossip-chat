@@ -4,6 +4,9 @@ import React, { useCallback, useState } from 'react'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
 import useAlert from './useAlert'
+import { useDispatch } from 'react-redux'
+import { login } from '@gossip/globals/reducers/auth'
+import { User } from '@gossip/types/users'
 
 const schema = z.object({
     email: z.string().email(),
@@ -20,9 +23,10 @@ type loginFormData = z.infer<typeof schema>
 const Server = process.env.NEXT_PUBLIC_API_SERVER
 console.log(Server)
 
-export const SignLog = () => {
+export const useLogin = () => {
     const [checked, setChecked] = useState(false)
     const [ShowPassword, setShowPassword] = useState(false)
+    const dispatch = useDispatch()
     const { openAlert } = useAlert()
 
     const handleChange = useCallback(
@@ -55,12 +59,24 @@ export const SignLog = () => {
         })
             .then(async (response) => {
                 // we parse the response body
-                let LoginData = await response.json()
+                let LoginData = (await response.json()) as {
+                    message: string
+                    payload: {
+                        accessToken: string
+                        user: User
+                    }
+                }
 
                 // if the response status is 200, we redirect to the login page
                 if (response.status === 200) {
                     openAlert('Logged In Successfully', 'success')
-
+                    console.log(LoginData)
+                    dispatch(
+                        login({
+                            token: LoginData.payload.accessToken,
+                            user: LoginData.payload.user,
+                        }),
+                    )
                     router.push('/home')
                 }
                 // if the response status is 400, we display the error message
