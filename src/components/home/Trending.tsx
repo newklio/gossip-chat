@@ -26,18 +26,6 @@ const Trending = () => {
                 >
                     Trending Topics
                 </Typography>
-                <Typography
-                    fontFamily={font.style.fontFamily}
-                    sx={{
-                        fontWeight: 500,
-                        lineHeight: '16px',
-                        color: myTheme.text.light.inactive,
-                        fontSize: '16px',
-                        width: '158px',
-                    }}
-                >
-                    {auth.user.fullname}
-                </Typography>
             </Stack>
             {/* trending topic closed */}
             <Stack sx={{ gap: '16px', width: '304px' }}>
