@@ -1,14 +1,13 @@
-import { RootState } from '@gossip/globals/store'
-import { myTheme, font } from '@gossip/theme'
-import { Button, Stack, Typography, Link } from '@mui/material'
-import { Inter } from 'next/font/google'
-// import Link from "next/link";
-
+import { selectAuth } from '@gossip/globals/reducers/auth'
+import { font, myTheme } from '@gossip/theme'
+import { Link, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+// import Link from "next/link";
+
 const Trending = () => {
-    const user = useSelector((state: RootState) => state.user)
+    const auth = useSelector(selectAuth)
 
     return (
         <>
@@ -37,7 +36,7 @@ const Trending = () => {
                         width: '158px',
                     }}
                 >
-                    {user.fullname}
+                    {auth.user.fullname}
                 </Typography>
             </Stack>
             {/* trending topic closed */}

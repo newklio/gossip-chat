@@ -5,7 +5,7 @@ import { myTheme } from '../../theme'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import IconButton from '@mui/material/IconButton'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { SignLog } from '../../hooks/SignLog'
+import { useLogin } from '../../hooks/useLogin'
 
 const LoginPage = () => {
     const {
@@ -18,7 +18,7 @@ const LoginPage = () => {
         setShowPassword,
         setChecked,
         router,
-    } = SignLog()
+    } = useLogin()
 
     useEffect(() => {
         console.log('page rendering')

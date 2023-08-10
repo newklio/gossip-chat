@@ -4,11 +4,10 @@ import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
 import { font, myTheme } from '@gossip/theme'
 import { grey } from '@mui/material/colors'
-import { RootState } from '@gossip/globals/store'
-import { setUser } from '@gossip/globals/reducers/users'
+import { selectAuth } from '@gossip/globals/reducers/auth'
 
 const Profile = () => {
-    const user = useSelector((state: RootState) => state.user)
+    const auth = useSelector(selectAuth)
     const dispatch = useDispatch()
 
     // useEffect(() => {
@@ -66,7 +65,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        {user.fullname}
+                        {auth.user.fullname}
                     </Typography>
                 </Stack>
 
@@ -140,7 +139,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        {user.email}
+                        {auth.user.email}
                     </Typography>
                 </Stack>
             </Stack>

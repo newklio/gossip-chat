@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import UsersReducer from './reducers/users'
+import AuthReducer from './reducers/auth'
 import AlertsReducer from './reducers/Alerts'
 
 export const reducers = combineReducers({
     // Add reducers here
-    user: UsersReducer,
+    auth: AuthReducer,
     alert: AlertsReducer,
 })
 
