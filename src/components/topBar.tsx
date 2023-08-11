@@ -1,192 +1,187 @@
-import React from 'react'
-import Stack from '@mui/material/Stack';
+import React, { useEffect } from 'react'
+import { IconButton, Stack } from '@mui/material';
 import Image from 'next/image';
-import { IconButton } from '@mui/material';
+import Logo from '@public/assets/icons/Gossip.png'
+import HomeActive from '@public/assets/icons/misc/Home/active.svg'
+import HomeInactive from '@public/assets/icons/misc/Home/inactive.svg'
+import SearchActive from '@public/assets/icons/misc/Search/active.svg'
+import SearchInactive from '@public/assets/icons/misc/Search/inactive.svg'
+import LikeActive from '@public/assets/icons/misc/Like/active.svg'
+import LikeInactive from '@public/assets/icons/misc/Like/inactive.svg'
+import SaveActive from '@public/assets/icons/misc/Save Later/active.svg'
+import SaveInactive from '@public/assets/icons/misc/Save Later/inactive.svg'
+import SendActive from '@public/assets/icons/misc/Send/active.svg'
+import SendInactive from '@public/assets/icons/misc/Send/inactive.svg'
+import Hamburguer from '@public/assets/icons/misc/hamburger.svg'
+import Settings from '@public/assets/icons/misc/settings.svg'
 import { grey } from '@mui/material/colors';
+import { useRouter } from 'next/router';
 
 const TopBar = () => {
+    const router = useRouter()
     const [active, setActive] = React.useState('home')
+
+    useEffect(() => {
+        if (router.pathname === '/home') {
+            setActive('home')
+        } else if (router.pathname === '/like') {
+            setActive('like')
+        }
+    }, [router.pathname])
+
     return (
         <Stack
-            direction="row"
-            justifyContent="space-between"
+            direction={'row'}
+            justifyContent={'space-between'}
             sx={{
-                boxShadow: '0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px -1px rgba(16, 24, 40, 0.10);'
+                boxShadow: ' 0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px -1px rgba(16, 24, 40, 0.10);'
             }}
             height={56}
+            bgcolor={'white'}
         >
             {/* logo section */}
             <Stack
                 py={'10px'}
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="center"
+                direction={'row'}
+                justifyContent={'flex-end'}
                 width={{
                     lg: '27.8%',
-                    xl: '100%',
-                }}
-                sx={{
-                    // borderRight: `1px solid ${grey[300]}`
+                    xl: '100%'
                 }}
             >
-                {/* logo container */}
+                {/* logp container */}
                 <Stack
                     px={'48px'}
                     width={400}
-                    direction="row"
-                    alignItems="center"
+                    direction={'row'}
+                    alignItems={'center'}
                 >
                     <Image
-                        src="/assets/icons/Gossip.svg"
-                        alt="Gossip Logo"
+                        src={Logo}
+                        alt={'Gossip Logo'}
                         width={64}
                         height={36}
+                        unoptimized
                     />
                 </Stack>
-                {/* end logo container */}
+                {/*  end logo container */}
             </Stack>
             {/* end logo section */}
 
             {/* navigation section */}
             <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
+                p={'16px 8px'}
+                justifyContent={'center'}
+                alignItems={'center'}
                 width={{
-                    lg: '44.5%',
-                    xl: '100%',
+                    lg: '44.4%',
+                    xl: '100%'
                 }}
                 sx={{
-                    borderLeft: `1px solid ${grey[300]}`,
                     borderRight: `1px solid ${grey[300]}`,
+                    borderLeft: `1px solid ${grey[300]}`
                 }}
             >
                 {/* navigation container */}
                 <Stack
-                    // width={312}
-                    direction="row"
-                    alignItems="center"
+                    direction={'row'}
+                    alignItems={'center'}
                     spacing={4}
                 >
-                    <IconButton onClick={() => setActive('home')} >
+                    <IconButton onClick={() => {
+                        router.push('/home')
+                    }}>
                         <Image
-                            src={
-                                active === 'home' ?
-                                    '/assets/icons/home/active/home.svg'
-                                    :
-                                    '/assets/icons/home/inactive/home.svg'
-                            }
-                            alt="Home"
+                            src={active === 'home' ? HomeActive : HomeInactive}
+                            alt={'Home'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
-                    <IconButton onClick={() => setActive('search')} >
+                    <IconButton onClick={() => setActive('search')}>
                         <Image
-                            src={
-                                active === 'search' ?
-                                    '/assets/icons/home/active/search.svg'
-                                    :
-                                    '/assets/icons/home/inactive/search.svg'
-                            }
-                            alt="Search"
+                            src={active === 'search' ? SearchActive : SearchInactive}
+                            alt={'Search'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
-                    <IconButton onClick={() => setActive('like')} >
+                    <IconButton onClick={() => {
+                        router.push('/like')
+                    }}>
                         <Image
-                            src={
-                                active === 'like' ?
-                                    '/assets/icons/home/active/like.svg'
-                                    :
-                                    '/assets/icons/home/inactive/like.svg'
-                            }
-                            alt="Like"
+                            src={active === 'like' ? LikeActive : LikeInactive}
+                            alt={'Like'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
-                    <IconButton onClick={() => setActive('send')} >
+                    <IconButton onClick={() => setActive('send')}>
                         <Image
-                            src={
-                                active === 'send' ?
-                                    '/assets/icons/home/active/send.svg'
-                                    :
-                                    '/assets/icons/home/inactive/send.svg'
-                            }
-                            alt="Send"
+                            src={active === 'send' ? SendActive : SendInactive}
+                            alt={'Send'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
-                    <IconButton onClick={() => setActive('save')} >
+                    <IconButton onClick={() => setActive('save')}>
                         <Image
-                            src={
-                                active === 'save' ?
-                                    '/assets/icons/home/active/save.svg'
-                                    :
-                                    '/assets/icons/home/inactive/save.svg'
-                            }
-                            alt="Save"
+                            src={active === 'save' ? SaveActive : SaveInactive}
+                            alt={'Save'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
                 </Stack>
-
+                {/* navigation container */}
             </Stack>
-            {/* end navigation Section */}
+            {/* end navigation section */}
 
             {/* settings section */}
             <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
+                py={'16px'}
+                alignItems={'center'}
                 width={{
                     lg: '27.8%',
-                    xl: '100%',
+                    xl: '100%'
                 }}
-                sx={{
-                    // borderLeft: `1px solid ${grey[300]}`
-                }}
+                direction={'row'}
+                justifyContent={'flex-start'}
+                alignContent={'center'}
             >
                 {/* settings container */}
                 <Stack
                     px={'48px'}
                     width={400}
-                    direction="row"
-                    justifyContent="flex-end"
-                    alignItems="center"
-                // spacing={2}
+                    direction={'row'}
+                    justifyContent={'flex-end'}
+                    alignItems={'center'}
                 >
-                    <IconButton
-                        sx={{
-                            // p: 0
-                        }}
-                    >
+                    <IconButton>
                         <Image
-                            src="/assets/icons/home/settings.svg"
-                            alt="Settings"
+                            src={Settings}
+                            alt={'Settings'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
-                    <IconButton
-                        sx={{
-                            // p: 0
-                        }}
-                    >
+                    <IconButton>
                         <Image
-                            src="/assets/icons/home/Hamburger.svg"
-                            alt="Hamburger"
+                            src={Hamburguer}
+                            alt={'Hamburguer'}
                             width={24}
                             height={24}
+                            unoptimized
                         />
                     </IconButton>
                 </Stack>
             </Stack>
-            {/* end settings section */}
         </Stack>
     )
 }
