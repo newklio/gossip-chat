@@ -1,6 +1,7 @@
+import { setAlert } from '@gossip/globals/reducers/Alerts'
 import { selectAuth } from '@gossip/globals/reducers/auth'
 import { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { z } from 'zod'
 
 // input pust body schema
@@ -24,6 +25,7 @@ const Server = process.env.NEXT_PUBLIC_API_SERVER
 export const Post = () => {
     const [post, setPost] = useState<CreatePostSchemaType>()
     const auth = useSelector(selectAuth)
+    const dispatch = useDispatch()
 
     const CreatePost = useCallback(async () => {
         console.log(post)
@@ -46,15 +48,27 @@ export const Post = () => {
                 let NewPost = await response.json()
 
                 if (response.status === 200) {
-                    alert('Post Created successfully')
+                    dispatch(
+                        setAlert({
+                            severity: 'success',
+                            message: 'Post created successfully',
+                        }),
+                    )
 
                     console.log(NewPost)
                 } else {
-                    alert(NewPost.message || 'An error occured')
+                    console.log(NewPost.message || 'An error occured')
+
+                    dispatch(
+                        setAlert({
+                            severity: 'error',
+                            message: NewPost.message || 'An error occured',
+                        }),
+                    )
                 }
             })
             .catch((error) => console.log('error', error))
-    }, [auth.token, post])
+    }, [auth.token, dispatch, post])
 
     return {
         CreatePost,
