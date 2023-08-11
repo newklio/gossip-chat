@@ -5,7 +5,15 @@ import { myTheme } from '../../theme'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import IconButton from '@mui/material/IconButton'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { SignLog } from '../../hooks/SignLog'
+import { useLogin } from '../../hooks/useLogin'
+
+/*
+    steps to perfrom auto redirect if logged in already.
+    1. import all the necessary hooks 
+    2. check if the user is already autneticated or not in useEffect
+    3. if authenticated redirect to home page then return null and show alert that you are already logged in.
+    4. if not then do nothing.
+*/
 
 const LoginPage = () => {
     const {
@@ -17,7 +25,8 @@ const LoginPage = () => {
         ShowPassword,
         setShowPassword,
         setChecked,
-    } = SignLog()
+        router,
+    } = useLogin()
 
     useEffect(() => {
         console.log('page rendering')
@@ -341,6 +350,9 @@ const LoginPage = () => {
                             fontWeight: 400,
                             color: myTheme.color.primary[500],
                             textTransform: 'none',
+                        }}
+                        onClick={() => {
+                            router.push('/signup')
                         }}
                     >
                         Sign up

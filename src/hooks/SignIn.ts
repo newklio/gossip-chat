@@ -79,5 +79,6 @@ export const Signpage = () => {
         setChecked,
         ShowPassword,
         setShowPassword,
+        router,
     }
 }

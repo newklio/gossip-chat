@@ -1,10 +1,28 @@
-import { Avatar, Badge, Chip, Stack, Typography } from '@mui/material'
-import React from 'react'
+import { Avatar, Badge, Button, Chip, Stack, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { font, myTheme } from '@gossip/theme'
+import { grey } from '@mui/material/colors'
+import { logout, selectAuth } from '@gossip/globals/reducers/auth'
+import { setAlert } from '@gossip/globals/reducers/Alerts'
 
 const Profile = () => {
+    const auth = useSelector(selectAuth)
+    const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         dispatch(
+    //             setUser({
+    //                 fullname: 'Deepak Yadu',
+    //                 uid: 'dk404found',
+    //                 email: 'deepak@gmail.com',
+    //             }),
+    //         )
+    //     }, 4000)
+    // }, [dispatch])
+
     return (
         // <div>Home profile</div>
 
@@ -25,7 +43,7 @@ const Profile = () => {
                     }
                 >
                     <Avatar
-                        src="/assets/icons/misc/profile/Ellipse 12.svg"
+                        src="/assets/icons/profile/user5.jpg"
                         alt="profileimg"
                         sx={{ width: '64px', height: '64px' }}
                     />
@@ -48,7 +66,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        Deepak Yadu
+                        {auth.user.fullname}
                     </Typography>
                 </Stack>
 
@@ -122,7 +140,7 @@ const Profile = () => {
                             lineHeight: '19px',
                         }}
                     >
-                        deepak@newklio.com
+                        {auth.user.email}
                     </Typography>
                 </Stack>
             </Stack>
@@ -169,6 +187,38 @@ const Profile = () => {
                     456 following
                 </Typography>
             </Stack>
+            <Button
+                sx={{
+                    borderRadius: '999px',
+                    bgcolor: grey[900],
+                    color: myTheme.text.dark.active,
+                    fontSize: '14px',
+                    fontsize: '13px',
+                    fontWeight: 500,
+                    lineHeight: '19px',
+                    paddingY: '8px',
+                    width: '100%',
+                    height: 32,
+                    '&:hover': {
+                        opacity: 0.8,
+                        bgcolor: grey[900],
+                    },
+                }}
+                variant="text"
+                type="submit"
+                onClick={() => {
+                    dispatch(logout())
+                    dispatch(
+                        setAlert({
+                            message: 'Logged Out Successfully',
+                            severity: 'success',
+                        }),
+                    )
+                }}
+            >
+                Log Out
+            </Button>
+
             {/* // start of profile stack for followers and following*/}
             {/* // end of main stack*/}
         </Stack>

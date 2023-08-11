@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
+import useAlert from './useAlert'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, logout, selectAuth } from '@gossip/globals/reducers/auth'
+import { User } from '@gossip/types/users'
 
 const schema = z.object({
     email: z.string().email(),
@@ -19,9 +23,22 @@ type loginFormData = z.infer<typeof schema>
 const Server = process.env.NEXT_PUBLIC_API_SERVER
 console.log(Server)
 
-export const SignLog = () => {
+export const useLogin = () => {
     const [checked, setChecked] = useState(false)
     const [ShowPassword, setShowPassword] = useState(false)
+    const dispatch = useDispatch()
+    const { openAlert } = useAlert()
+
+    const auth = useSelector(selectAuth)
+
+    useEffect(() => {
+        if (!auth.authenticated) {
+            dispatch(logout())
+        } else if (auth.authenticated) {
+            router.push('/home')
+            openAlert('user is already Logged in', 'success')
+        }
+    }, [auth.authenticated, dispatch])
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +61,7 @@ export const SignLog = () => {
         var myHeaders = new Headers()
         myHeaders.append('Content-Type', 'application/json')
         var raw = JSON.stringify(formData)
+
         fetch(`${Server}/onboarding/login`, {
             method: 'POST',
             headers: myHeaders,
@@ -52,22 +70,40 @@ export const SignLog = () => {
         })
             .then(async (response) => {
                 // we parse the response body
-                let LoginData = await response.json()
+                let LoginData = (await response.json()) as {
+                    message: string
+                    payload: {
+                        accessToken: string
+                        user: User
+                    }
+                }
 
                 // if the response status is 200, we redirect to the login page
                 if (response.status === 200) {
-                    alert('logged in successfully')
-
+                    openAlert('Logged In Successfully', 'success')
+                    console.log(LoginData)
+                    dispatch(
+                        login({
+                            token: LoginData.payload.accessToken,
+                            user: LoginData.payload.user,
+                        }),
+                    )
                     router.push('/home')
                 }
                 // if the response status is 400, we display the error message
                 else {
-                    alert(LoginData.message || 'An error occured')
+                    openAlert(
+                        LoginData.message || 'Something went wrong',
+                        'error',
+                    )
                 }
             })
 
             // if the request fails, we log the error
-            .catch((error) => console.log('error', error))
+            .catch((error) => {
+                openAlert(error.message, 'error')
+                console.log(error)
+            })
     })
 
     return {
@@ -80,5 +116,6 @@ export const SignLog = () => {
         SubmitData,
         ShowPassword,
         setShowPassword,
+        router,
     }
 }
