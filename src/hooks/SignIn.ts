@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
+import useAlert from './useAlert'
+import { useSelector } from 'react-redux'
+import { selectAuth } from '@gossip/globals/reducers/auth'
 
 const schema = z.object({
     email: z.string().email(),
@@ -26,6 +29,17 @@ console.log(Server)
 export const Signpage = () => {
     const [checked, setChecked] = useState(true)
     const [ShowPassword, setShowPassword] = useState(false)
+
+    const { openAlert } = useAlert()
+
+    const auth = useSelector(selectAuth)
+
+    useEffect(() => {
+        if (auth.authenticated) {
+            router.push('/home')
+            openAlert('user Logged in successfully', 'success')
+        }
+    }, [auth.authenticated])
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,14 +70,14 @@ export const Signpage = () => {
         })
             .then(async (response) => {
                 // we parse the response body
-                let LoginData = await response.json()
+                let SigninData = await response.json()
 
                 if (response.status === 200) {
                     alert('Account Created successfully')
 
                     router.push('/login')
                 } else {
-                    alert(LoginData.message || 'An error occured')
+                    alert(SigninData.message || 'An error occured')
                 }
             })
             .catch((error) => console.log('error', error))
