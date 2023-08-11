@@ -31,7 +31,7 @@ export const Post = () => {
         var myHeaders = new Headers()
         // add authorization header
         myHeaders.append('Content-Type', 'application/json')
-        myHeaders.append('Authorization', `Bearer ${auth.token}`)
+        myHeaders.append('Authorization', `${auth.token}`)
         var raw = JSON.stringify(post)
         console.log(raw, myHeaders, auth.token)
         fetch(`${Server}/posts/createPost`, {
