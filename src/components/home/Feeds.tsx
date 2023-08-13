@@ -8,6 +8,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useRouter } from 'next/router';
 import { StackedBarChartSharp } from '@mui/icons-material';
+import { Post } from '../../hooks/usePost';
+
 interface ThreadDetails {
     id: string,
     username: string,
@@ -321,6 +323,12 @@ const Thread = (
     )
 }
 function Feeds() {
+    const {
+        post,
+        setPost,
+        CreatePost,
+    } = Post()
+
     return (
         <Stack
             spacing={'8px'}
@@ -388,6 +396,21 @@ function Feeds() {
                         maxRows={6}
                         placeholder="Share something cool today"
                         fullWidth
+                        onChange={(e) => {
+                            // find hastags in the text and add them to the tags array and other text to the caption
+                            const text = e.target.value
+                            const tags = text.match(/#[a-z0-9]+/gi)
+
+                            // remove /n from the text on enter and hahtag
+                            const caption = text.replace(/(\r\n|\n|\r)/gm, "").replace(/#[a-z0-9]+/gi, "")
+                            console.log(tags, caption)
+                            setPost({
+                                ...post,
+                                // convert tags to string[]
+                                tags: tags?.map((tag) => tag.replace('#', '')),
+                                caption: caption,
+                            })
+                        }}
                     />
                     {/* end input */}
                     {/* buttons */}
@@ -410,6 +433,7 @@ function Feeds() {
                                 alignSelf: 'center',
                                 justifyContent: 'center',
                             }}
+                            onClick={() => CreatePost()}
                         >
                             <SendOutlinedIcon
                                 sx={{
