@@ -1,4 +1,6 @@
-import { CommentList, PostComment } from '@gossip/components/post/Postcomment'
+import { PostComment } from '@gossip/components/post/Postcomment'
+import auth, { selectAuth } from '@gossip/globals/reducers/auth'
+import { useComments } from '@gossip/hooks/useComment'
 import { SinglePostData } from '@gossip/hooks/useSinglePost'
 import { myTheme } from '@gossip/theme'
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp'
@@ -16,17 +18,35 @@ import {
 import { grey } from '@mui/material/colors'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 // import { DetailedThread } from "../../pages/thread/[id]"
 
 const SingleFeed = ({ data }: { data: SinglePostData }) => {
     const router = useRouter()
+    const auth = useSelector(selectAuth)
+    const { postComments, getComment } = useComments();
+    // const postId = "d2f4e645 - 5414 - 4a97-8dc1 - e16f18e1fb8a"
+    const { id } = router.query
+
+    useEffect(() => {
+        if (!auth.authenticated) {
+            router.replace('/login')
+        }
+        if (id) {
+            getComment(id as string);
+        }
+
+    }, [getComment, id, auth.authenticated, router]);
+
+    if (!auth.authenticated) {
+        return null
+    }
+
     return (
         <Stack direction={'column'} alignItems={'flex-start'} gap={'16px'}>
-            {data.caption}
-            {data.tags.join(', ')}
-            {data.createdOn.getTime()}
+
             <Stack gap={'8px'} alignItems={'center'} direction={'row'}>
                 <IconButton onClick={() => router.back()}>
                     <ArrowBackSharpIcon
@@ -86,11 +106,11 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                             </IconButton>
                         }
                     >
-                        {/* <Avatar
-                            src={detial_post.avatar}
+                        <Avatar
+                            src=""
                             alt="postprofileimg"
                             sx={{ width: '36px', height: '36px' }}
-                        /> */}
+                        />
                     </Badge>
                     {/* end avatar with button */}
 
@@ -123,14 +143,14 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                             justifyContent={'space-between'}
                         >
                             {/* user name */}
-                            {/* <Typography
+                            <Typography
                                 sx={{
                                     fontSize: "14px",
                                     lineHeight: "19px",
                                     fontWeight: "600",
                                 }}>
-                                {detial_post.username}
-                            </Typography> */}
+                                Aman
+                            </Typography>
                             {/* end user name */}
 
                             {/* time and options */}
@@ -146,7 +166,7 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                     fontWeight={400}
                                     color={myTheme.text.light.inactive}
                                 >
-                                    {/* {detial_post.time} */}
+                                    {data.createdOn.toLocaleDateString()}
                                 </Typography>
                                 {/* end time */}
 
@@ -175,13 +195,13 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                 color: '#000000',
                             }}
                         >
-                            {/* {detial_post.content} */}
+                            {data.caption}
                         </Typography>
                         {/* end caption */}
                         {/* start tags */}
 
-                        {/* <Stack
-                        >{detial_post.tags?.map((tag, index) => (
+                        <Stack
+                        >{data.tags?.map((tag, index) => (
                             <Typography
                                 sx={{
                                     fontSize: "13px",
@@ -193,7 +213,7 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                 {tag}
                             </Typography>
                         ))}
-                        </Stack> */}
+                        </Stack>
                     </Stack>
                     {/* end tags */}
                     {data.images && (
@@ -383,8 +403,8 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                     {/* end of Stack to add comment textfiled */}
 
                     <Stack spacing={'8px'}>
-                        {CommentList.map((comment, index) => (
-                            <PostComment key={index} details={comment} />
+                        {postComments.map((comment) => (
+                            <PostComment key={comment.id} data={comment} />
                         ))}
                     </Stack>
                     <Stack alignItems={'flex-start'}>
@@ -409,3 +429,20 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
 }
 
 export default SingleFeed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

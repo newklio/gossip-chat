@@ -4,42 +4,42 @@ import { myTheme } from '@gossip/theme';
 import { grey } from '@mui/material/colors';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
+import { CommentSchema, useComments } from '@gossip/hooks/useComment';
+import { useRouter } from 'next/router';
+import auth from '@gossip/globals/reducers/auth';
 
 
 
-interface CommentDetails {
-    username: string,
-    time: string,
-    avatar: string,
-    content: string,
-    likeCount?: number,
-}
+// interface CommentDetails {
+//     username: string,
+//     time: string,
+//     avatar: string,
+//     content: string,
+//     likeCount?: number,
+// }
 
-export const CommentList: CommentDetails[] = [
-    {
-        username: "Deepak Yadu",
-        time: "2min",
-        avatar: '/assets/icons/profile/user5.jpg',
-        content: "I’ve been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please",
-        likeCount: 25,
-    },
-    {
-        username: "John Walker",
-        time: "2min",
-        avatar: '/assets/icons/profile/user1.jpg',
-        content: "I love seeing your creations, would you like to collaborate with me for our next project. It will be fun.",
-        likeCount: 112,
-    },
+// export const CommentList: CommentDetails[] = [
+//     {
+//         username: "Deepak Yadu",
+//         time: "2min",
+//         avatar: '/assets/icons/profile/user5.jpg',
+//         content: "I’ve been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please",
+//         likeCount: 25,
+//     },
+//     {
+//         username: "John Walker",
+//         time: "2min",
+//         avatar: '/assets/icons/profile/user1.jpg',
+//         content: "I love seeing your creations, would you like to collaborate with me for our next project. It will be fun.",
+//         likeCount: 112,
+//     },
 
-]
+// ]
 
-export const PostComment = (
-    {
-        details
-    }: {
-        details: CommentDetails
-    }
-) => {
+export const PostComment = ({ data }: { data: CommentSchema }) => {
+    const router = useRouter()
+    console.log(data.user)
+
     return (
         <Stack>
             {/* start of stack for the list of comments */}
@@ -68,7 +68,7 @@ export const PostComment = (
                     {/* avatar  */}
                     <Badge>
                         <Avatar
-                            src={details.avatar}
+                            src="/assets/icons/profile/user5.jpg"
                             alt="postprofileimg"
                             sx={{ width: '36px', height: '36px' }}
                         />
@@ -91,7 +91,9 @@ export const PostComment = (
                                     lineHeight: "19px",
                                     fontWeight: "600",
                                 }}>
-                                {details.username}
+                                {/* {data.CommentedUserId} */}
+
+                                Dk404Found
                             </Typography>
                             {/* end user name */}
 
@@ -104,7 +106,7 @@ export const PostComment = (
                                     fontWeight={400}
                                     color={myTheme.text.light.inactive}
                                 >
-                                    {details.time}
+                                    {data.createdOn.toLocaleDateString()}
                                 </Typography>
                                 {/* end time */}
 
@@ -132,7 +134,7 @@ export const PostComment = (
                                 fontWeight: "400",
                                 color: "#000000",
                             }}
-                        > {details.content}
+                        > {data.comment}
                         </Typography>
                         {/* end comment */}
 
@@ -146,7 +148,7 @@ export const PostComment = (
                                 fontWeight={400}
                                 lineHeight={"19px"}
                             >
-                                {details.likeCount}
+                                5
                             </Typography>
                             <IconButton
                                 sx={{
@@ -174,3 +176,4 @@ export const PostComment = (
 }
 
 // export default PostComment;
+
