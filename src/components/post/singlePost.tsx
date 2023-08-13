@@ -9,23 +9,20 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 import { PostComment, CommentList } from '@gossip/components/post/Postcomment'
 import { useRouter } from 'next/router';
-import { DetailedThread } from "../../pages/thread/[id]"
+import { SingleFeedprop } from '@gossip/types/Singlefeed';
+// import { DetailedThread } from "../../pages/thread/[id]"
 
 
-
-const SingleFeed = (
-    {
-        detial_post
-    }: {
-        detial_post: DetailedThread
-    }
-) => {
+const SingleFeed = ({ data }: SingleFeedprop) => {
     const router = useRouter()
     return (
         <Stack direction={'column'}
             alignItems={"flex-start"}
             gap={"16px"}
         >
+            {data.caption}
+            {data.tags.join(', ')}
+            {data.createdOn}
             <Stack
                 gap={"8px"}
                 alignItems={"center"}
@@ -85,11 +82,11 @@ const SingleFeed = (
                             </IconButton>
                         }
                     >
-                        <Avatar
+                        {/* <Avatar
                             src={detial_post.avatar}
                             alt="postprofileimg"
                             sx={{ width: '36px', height: '36px' }}
-                        />
+                        /> */}
                     </Badge>
                     {/* end avatar with button */}
 
@@ -119,14 +116,14 @@ const SingleFeed = (
                         {/* heading */}
                         <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
                             {/* user name */}
-                            <Typography
+                            {/* <Typography
                                 sx={{
                                     fontSize: "14px",
                                     lineHeight: "19px",
                                     fontWeight: "600",
                                 }}>
                                 {detial_post.username}
-                            </Typography>
+                            </Typography> */}
                             {/* end user name */}
 
                             {/* time and options */}
@@ -138,7 +135,7 @@ const SingleFeed = (
                                     fontWeight={400}
                                     color={myTheme.text.light.inactive}
                                 >
-                                    {detial_post.time}
+                                    {/* {detial_post.time} */}
                                 </Typography>
                                 {/* end time */}
 
@@ -166,12 +163,13 @@ const SingleFeed = (
                                 fontWeight: "400",
                                 color: "#000000",
                             }}
-                        > {detial_post.content}
+                        >
+                            {/* {detial_post.content} */}
                         </Typography>
                         {/* end caption */}
                         {/* start tags */}
 
-                        <Stack
+                        {/* <Stack
                         >{detial_post.tags?.map((tag, index) => (
                             <Typography
                                 sx={{
@@ -184,12 +182,12 @@ const SingleFeed = (
                                 {tag}
                             </Typography>
                         ))}
-                        </Stack>
+                        </Stack> */}
                     </Stack>
                     {/* end tags */}
 
                     {/* start for images */}
-                    <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'} flexWrap={'wrap'}>
+                    {/* <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'} flexWrap={'wrap'}>
                         {detial_post.images?.map((imgSrc, index) => (
                             <Image
                                 key={index} // Make sure to provide a unique key for each image
@@ -200,7 +198,7 @@ const SingleFeed = (
                                 unoptimized
                             />
                         ))}
-                    </Stack>
+                    </Stack> */}
                     {/* end for images */}
                     {/* start for icon buttons like comment repost */}
                     <Stack alignItems={'flex-start'} direction={"row"} gap={"12px"}>
@@ -264,7 +262,7 @@ const SingleFeed = (
                             }}
                             color={myTheme.text.light.inactive}
                         >
-                            {detial_post.repostsCount} Resposts
+                            5 Resposts
                         </Typography>
                         <Image
                             src="/assets/icons/misc/profile/Ellipse 5.svg"
@@ -283,7 +281,7 @@ const SingleFeed = (
                             }}
                             color={myTheme.text.light.inactive}
                         >
-                            {detial_post.commentsCount} Comment
+                            5 Comment
                         </Typography>
                     </Stack>
                     {/* start to add comment textfiled */}
