@@ -88,34 +88,26 @@ import { useSinglePost } from '@gossip/hooks/useSinglePost'
 const PostPage = () => {
     const router = useRouter()
     const auth = useSelector(selectAuth)
-    const { id } = router.query;
-    const { createSinglePost, singlePost } = useSinglePost();
+    const { id } = router.query
+    const { getSinglePost, singlePost } = useSinglePost()
 
     useEffect(() => {
         if (!auth.authenticated) {
             router.replace('/login')
         }
         if (id) {
-            createSinglePost(id as string);
+            getSinglePost(id as string)
         }
-
-    }, [auth.authenticated, router, createSinglePost])
+    }, [auth.authenticated, router, getSinglePost, id])
     if (!auth.authenticated) {
-        return null;
+        return null
     }
-    console.log(singlePost)
-
-
 
     return (
         <MainLayout title="Post">
-            {singlePost ? (
-                <SingleFeed data={singlePost} />
-            ) : (
-                <p>Loading...</p>
-            )}
+            {singlePost ? <SingleFeed data={singlePost} /> : <p>Loading...</p>}
         </MainLayout>
-    );
-};
+    )
+}
 
 export default PostPage

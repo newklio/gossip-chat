@@ -1,33 +1,33 @@
-import { Avatar, Badge, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
+import { CommentList, PostComment } from '@gossip/components/post/Postcomment'
+import { SinglePostData } from '@gossip/hooks/useSinglePost'
+import { myTheme } from '@gossip/theme'
+import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import {
+    Avatar,
+    Badge,
+    Button,
+    IconButton,
+    Stack,
+    TextField,
+    Typography,
+} from '@mui/material'
+import { grey } from '@mui/material/colors'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React from 'react'
-import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
-import { myTheme } from '@gossip/theme';
-import { grey } from '@mui/material/colors';
-import Image from 'next/image';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
-import { PostComment, CommentList } from '@gossip/components/post/Postcomment'
-import { useRouter } from 'next/router';
-import { SingleFeedprop } from '@gossip/types/Singlefeed';
+
 // import { DetailedThread } from "../../pages/thread/[id]"
 
-
-const SingleFeed = ({ data }: SingleFeedprop) => {
+const SingleFeed = ({ data }: { data: SinglePostData }) => {
     const router = useRouter()
     return (
-        <Stack direction={'column'}
-            alignItems={"flex-start"}
-            gap={"16px"}
-        >
+        <Stack direction={'column'} alignItems={'flex-start'} gap={'16px'}>
             {data.caption}
             {data.tags.join(', ')}
-            {data.createdOn}
-            <Stack
-                gap={"8px"}
-                alignItems={"center"}
-                direction={"row"}
-            >
+            {data.createdOn.getTime()}
+            <Stack gap={'8px'} alignItems={'center'} direction={'row'}>
                 <IconButton onClick={() => router.back()}>
                     <ArrowBackSharpIcon
                         sx={{
@@ -35,28 +35,29 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                             width: '32px',
                             height: '32px',
                         }}
-
                     />
                 </IconButton>
                 <Typography
                     fontWeight={700}
-                    fontSize={"20px"}
-                    lineHeight={"19px"}
-                >Gossip Topic
+                    fontSize={'20px'}
+                    lineHeight={'19px'}
+                >
+                    Gossip Topic
                 </Typography>
             </Stack>
 
-            <Stack alignItems={'center'}
+            <Stack
+                alignItems={'center'}
                 direction={'row'}
                 spacing={'12px'}
                 sx={{
                     p: '16px 16px 16px 12px',
                     borderRadius: '16px',
                     bgcolor: '#fff',
-                    boxShadow: '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
+                    boxShadow:
+                        '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
                     maxWidth: '100%',
                     width: '624 ',
-
                 }}
             >
                 {/* left avatar section */}
@@ -71,7 +72,10 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                     {/* avatar with button */}
                     <Badge
                         overlap="circular"
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
                         badgeContent={
                             <IconButton>
                                 <Avatar
@@ -93,9 +97,9 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                     {/* horizontal line */}
                     <Stack
                         sx={{
-                            position: "relative",
-                            width: "2px",
-                            height: "88%",
+                            position: 'relative',
+                            width: '2px',
+                            height: '88%',
                         }}
                     >
                         <Image
@@ -110,11 +114,14 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                 {/* end left avatar section */}
 
                 {/* right content section -heading Caption imagees and like comment */}
-                <Stack direction={"column"} gap={"12px"} width={'100%'}
-                >
-                    <Stack direction={"column"} gap={"6px"} >
+                <Stack direction={'column'} gap={'12px'} width={'100%'}>
+                    <Stack direction={'column'} gap={'6px'}>
                         {/* heading */}
-                        <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                        <Stack
+                            direction={'row'}
+                            alignItems={'center'}
+                            justifyContent={'space-between'}
+                        >
                             {/* user name */}
                             {/* <Typography
                                 sx={{
@@ -127,11 +134,15 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                             {/* end user name */}
 
                             {/* time and options */}
-                            <Stack direction={'row'} alignItems={'center'} spacing={'16px'}>
+                            <Stack
+                                direction={'row'}
+                                alignItems={'center'}
+                                spacing={'16px'}
+                            >
                                 {/* time */}
                                 <Typography
-                                    fontSize={"12px"}
-                                    lineHeight={"19px"}
+                                    fontSize={'12px'}
+                                    lineHeight={'19px'}
                                     fontWeight={400}
                                     color={myTheme.text.light.inactive}
                                 >
@@ -158,10 +169,10 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                         {/* start caption */}
                         <Typography
                             sx={{
-                                fontSize: "13px",
-                                lineHeight: "19px",
-                                fontWeight: "400",
-                                color: "#000000",
+                                fontSize: '13px',
+                                lineHeight: '19px',
+                                fontWeight: '400',
+                                color: '#000000',
                             }}
                         >
                             {/* {detial_post.content} */}
@@ -185,23 +196,35 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                         </Stack> */}
                     </Stack>
                     {/* end tags */}
-
-                    {/* start for images */}
-                    {/* <Stack alignItems={"flex-start"} gap={"8px"} direction={'row'} flexWrap={'wrap'}>
-                        {detial_post.images?.map((imgSrc, index) => (
-                            <Image
-                                key={index} // Make sure to provide a unique key for each image
-                                src={imgSrc}
-                                alt={`Image ${index + 1}`}
-                                width={"238"}
-                                height={"230"}
-                                unoptimized
-                            />
-                        ))}
-                    </Stack> */}
-                    {/* end for images */}
+                    {data.images && (
+                        <>
+                            {/* start for images */}
+                            <Stack
+                                alignItems={'flex-start'}
+                                gap={'8px'}
+                                direction={'row'}
+                                flexWrap={'wrap'}
+                            >
+                                {data.images?.map((imgSrc, index) => (
+                                    <Image
+                                        key={index} // Make sure to provide a unique key for each image
+                                        src={imgSrc}
+                                        alt={`Image ${index + 1}`}
+                                        width={'238'}
+                                        height={'230'}
+                                        unoptimized
+                                    />
+                                ))}
+                            </Stack>
+                            {/* end for images */}
+                        </>
+                    )}
                     {/* start for icon buttons like comment repost */}
-                    <Stack alignItems={'flex-start'} direction={"row"} gap={"12px"}>
+                    <Stack
+                        alignItems={'flex-start'}
+                        direction={'row'}
+                        gap={'12px'}
+                    >
                         {/* for like */}
                         <IconButton
                             sx={{
@@ -236,7 +259,8 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                                 width: '24px',
                                 height: '24px',
                             }}
-                        ><Image
+                        >
+                            <Image
                                 src="/assets/icons/feeds/repost.svg"
                                 alt="repost"
                                 height={24}
@@ -249,10 +273,11 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                     {/* end for icon buttons like comment repost */}
 
                     {/* start for stack comeent and repost */}
-                    <Stack gap={'4px'}
-
+                    <Stack
+                        gap={'4px'}
                         flexDirection={'row'}
-                        alignItems={'center'}>
+                        alignItems={'center'}
+                    >
                         <Typography
                             letterSpacing={-0.2}
                             sx={{
@@ -277,7 +302,7 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                                 fontSize: '13px',
                                 fontWeight: '400',
                                 lineHeight: '19px',
-                                letterSpacing: "-0.2px"
+                                letterSpacing: '-0.2px',
                             }}
                             color={myTheme.text.light.inactive}
                         >
@@ -286,32 +311,31 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                     </Stack>
                     {/* start to add comment textfiled */}
                     <Stack
-                        padding={"4px"}
-                        gap={"19px"}
-                        alignItems={"center"}
-                        borderRadius={"999px"}
-                        border={"1px solid #BDBDBD"}
-                        height={"100%"}
-                        width={"100%"}
-                        direction={"row"}
-
+                        padding={'4px'}
+                        gap={'19px'}
+                        alignItems={'center'}
+                        borderRadius={'999px'}
+                        border={'1px solid #BDBDBD'}
+                        height={'100%'}
+                        width={'100%'}
+                        direction={'row'}
                     >
                         {/* for Avatar icon */}
                         <Image
-                            src='/assets/icons/misc/profile/Ellipse 12.svg'
+                            src="/assets/icons/misc/profile/Ellipse 12.svg"
                             alt="profileimage"
-                            width={"32"}
-                            height={"32"}
+                            width={'32'}
+                            height={'32'}
                         />
                         {/* for TextField */}
                         <Stack
-                            fontSize={"13px"}
+                            fontSize={'13px'}
                             // lineHeight={"19px"}
                             fontWeight={400}
-                            letterSpacing={"-0.2px"}
-                            width={"414px"}
+                            letterSpacing={'-0.2px'}
+                            width={'414px'}
                             spacing={'8px'}
-                            height={"100%"}
+                            height={'100%'}
                         >
                             <TextField
                                 sx={{
@@ -324,7 +348,7 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
 
                                         fontWeight: '500',
                                     },
-                                    "& fieldset": { border: "none" },
+                                    '& fieldset': { border: 'none' },
                                 }}
                                 id="standard-textarea"
                                 multiline
@@ -334,22 +358,22 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                             />
                         </Stack>
                         {/* for post button */}
-                        <Stack alignItems={"flex-end"}>
-                            <Button variant="contained"
+                        <Stack alignItems={'flex-end'}>
+                            <Button
+                                variant="contained"
                                 sx={{
-                                    borderRadius: "999px",
+                                    borderRadius: '999px',
                                     bgcolor: grey[900],
-                                    fontsize: "13px",
-                                    lineHeight: "19px",
-                                    FontWeight: "400",
-                                    letterSpacing: "-0.2px",
-                                    textTransform: "none",
-                                    paddingY: "8px",
+                                    fontsize: '13px',
+                                    lineHeight: '19px',
+                                    FontWeight: '400',
+                                    letterSpacing: '-0.2px',
+                                    textTransform: 'none',
+                                    paddingY: '8px',
                                     '&:hover': {
                                         opacity: 0.8,
                                         bgcolor: grey[900],
-                                    }
-
+                                    },
                                 }}
                             >
                                 Post
@@ -358,41 +382,28 @@ const SingleFeed = ({ data }: SingleFeedprop) => {
                     </Stack>
                     {/* end of Stack to add comment textfiled */}
 
-
-                    <Stack
-                        spacing={'8px'}
-                    >{
-                            CommentList.map((comment, index) => (
-                                <PostComment
-                                    key={index} details={comment} />
-                            ))
-                        }
+                    <Stack spacing={'8px'}>
+                        {CommentList.map((comment, index) => (
+                            <PostComment key={index} details={comment} />
+                        ))}
                     </Stack>
-                    <Stack
-                        alignItems={"flex-start"}
-                    >
-
-                        <Button variant="text"
+                    <Stack alignItems={'flex-start'}>
+                        <Button
+                            variant="text"
                             sx={{
                                 fontSize: '13px',
                                 fontWeight: 500,
                                 lineHeight: '19px',
                                 textTransform: 'none',
-                                color: "#03A9F4",
-
+                                color: '#03A9F4',
                             }}
-                        >load more
-
+                        >
+                            load more
                         </Button>
                     </Stack>
-
-
                 </Stack>
                 {/* end right content section -heading Caption images and like comment */}
-
-
-
-            </Stack >
+            </Stack>
         </Stack>
     )
 }

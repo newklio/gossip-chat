@@ -16,10 +16,11 @@ const useSinglePostSchema = z.object({
             message: 'caption must be at most 500 characters long',
         }),
     tags: z.array(z.string().min(0)).max(10),
-    createdOn: z.array(z.string().min(0)).max(10),
+    createdOn: z.date(),
+    images: z.array(z.string().min(0)).max(10).optional(),
 })
 
-type SinglePostData = z.infer<typeof useSinglePostSchema>
+export type SinglePostData = z.infer<typeof useSinglePostSchema>
 
 const Server = process.env.NEXT_PUBLIC_API_SERVER
 console.log(Server)
@@ -30,45 +31,31 @@ export const useSinglePost = () => {
     const auth = useSelector(selectAuth)
     const [singlePost, setSinglePost] = useState<SinglePostData | null>(null)
 
-    const createSinglePost = useCallback(
+    const getSinglePost = useCallback(
         async (id: String) => {
             var myHeaders = new Headers()
             myHeaders.append('Content-Type', 'application/json')
             myHeaders.append('Authorization', `${auth.token}`)
-            console.log('check')
-
-            var raw = JSON.stringify(singlePost)
 
             fetch(`${Server}/posts/getPost/${id}`, {
                 method: 'GET',
                 headers: myHeaders,
             })
                 .then(async (response) => {
-                    let Data = (await response.json()) as {
+                    let data = (await response.json()) as {
                         message: string
-                        payload: {
-                            post: {
-                                caption: string
-                                tags: string[]
-                                createdOn: string
-                            }
-                        }
+                        payload: SinglePostData
                     }
 
-                    console.log('this is a message')
-
                     if (response.status === 200) {
-                        console.log(Data)
-                        dispatch(
-                            setAlert({
-                                message: 'Post created successfully',
-                                severity: 'success',
-                            }),
+                        data.payload.createdOn = new Date(
+                            data.payload.createdOn,
                         )
+                        setSinglePost(data.payload)
                     } else {
                         dispatch(
                             setAlert({
-                                message: 'Error: ' + Data.message,
+                                message: 'Error: ' + data.message,
                                 severity: 'error',
                             }),
                         )
@@ -78,12 +65,12 @@ export const useSinglePost = () => {
                     console.log('Failed to create', error)
                 })
         },
-        [auth.token, dispatch, singlePost],
+        [auth.token, dispatch],
     )
 
     return {
         singlePost,
         setSinglePost,
-        createSinglePost,
+        getSinglePost,
     }
 }
