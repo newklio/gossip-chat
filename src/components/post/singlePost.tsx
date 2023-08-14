@@ -216,7 +216,7 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                         </Stack>
                     </Stack>
                     {/* end tags */}
-                    {data.images && (
+                    {data.images && data.images.length > 0 && (
                         <>
                             {/* start for images */}
                             <Stack
@@ -225,9 +225,9 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                 direction={'row'}
                                 flexWrap={'wrap'}
                             >
-                                {data.images?.map((imgSrc, index) => (
+                                {data.images.map((imgSrc, index) => (
                                     <Image
-                                        key={index} // Make sure to provide a unique key for each image
+                                        key={index}
                                         src={imgSrc}
                                         alt={`Image ${index + 1}`}
                                         width={'238'}
@@ -239,6 +239,7 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                             {/* end for images */}
                         </>
                     )}
+
                     {/* start for icon buttons like comment repost */}
                     <Stack
                         alignItems={'flex-start'}
@@ -423,8 +424,8 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                     </Stack>
                 </Stack>
                 {/* end right content section -heading Caption images and like comment */}
-            </Stack>
-        </Stack>
+            </Stack >
+        </Stack >
     )
 }
 

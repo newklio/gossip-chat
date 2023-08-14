@@ -37,8 +37,7 @@ import auth from '@gossip/globals/reducers/auth';
 // ]
 
 export const PostComment = ({ data }: { data: CommentSchema }) => {
-    const router = useRouter()
-    console.log(data.user)
+    // const router = useRouter()
 
     return (
         <Stack>
@@ -93,7 +92,8 @@ export const PostComment = ({ data }: { data: CommentSchema }) => {
                                 }}>
                                 {/* {data.CommentedUserId} */}
 
-                                Dk404Found
+                                {data.commentedBy.fullname}
+
                             </Typography>
                             {/* end user name */}
 
@@ -136,6 +136,21 @@ export const PostComment = ({ data }: { data: CommentSchema }) => {
                             }}
                         > {data.comment}
                         </Typography>
+
+                        <Stack
+                        >{data.tags?.map((tag, index) => (
+                            <Typography
+                                sx={{
+                                    fontSize: "12px",
+                                    lineHeight: "19px",
+                                    fontWeight: "400",
+                                    color: "#03A9F4",
+                                }}
+                                key={index}>
+                                {tag}
+                            </Typography>
+                        ))}
+                        </Stack>
                         {/* end comment */}
 
                         <Stack

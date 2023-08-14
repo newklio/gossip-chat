@@ -52,6 +52,7 @@ export const useSinglePost = () => {
                             data.payload.createdOn,
                         )
                         setSinglePost(data.payload)
+                        console.log(data.payload)
                     } else {
                         dispatch(
                             setAlert({
