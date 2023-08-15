@@ -20,6 +20,7 @@ import { feedsData, usegetFeeds } from '@gossip/hooks/usegetFeeds'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { selectAuth } from '@gossip/globals/reducers/auth'
+import { Post } from '@gossip/hooks/usePost'
 // interface ThreadDetails {
 //     id: string,
 //     username: string,
@@ -383,6 +384,8 @@ function Feeds() {
         getFeeds()
     }, [getFeeds])
 
+    const { post, setPost, CreatePost } = Post()
+
     return (
         <Stack
             spacing={'8px'}
@@ -451,6 +454,23 @@ function Feeds() {
                         maxRows={6}
                         placeholder="Share something cool today"
                         fullWidth
+                        onChange={(e) => {
+                            // find hastags in the text and add them to the tags array and other text to the caption
+                            const text = e.target.value
+                            const tags = text.match(/#[a-z0-9]+/gi)
+
+                            // remove /n from the text on enter and hahtag
+                            const caption = text
+                                .replace(/(\r\n|\n|\r)/gm, '')
+                                .replace(/#[a-z0-9]+/gi, '')
+                            console.log(tags, caption)
+                            setPost({
+                                ...post,
+                                // convert tags to string[]
+                                tags: tags?.map((tag) => tag.replace('#', '')),
+                                caption: caption,
+                            })
+                        }}
                     />
                     {/* end input */}
                     {/* buttons */}
@@ -478,6 +498,7 @@ function Feeds() {
                                 alignSelf: 'center',
                                 justifyContent: 'center',
                             }}
+                            onClick={() => CreatePost()}
                         >
                             <SendOutlinedIcon
                                 sx={{
