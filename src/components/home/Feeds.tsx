@@ -16,73 +16,145 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { useRouter } from 'next/router'
 import { StackedBarChartSharp } from '@mui/icons-material'
-import { feedsData, usegetFeeds } from '@gossip/hooks/usegetFeeds'
+import { feedsData, useGetFeeds } from '@gossip/hooks/usegetFeeds'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { selectAuth } from '@gossip/globals/reducers/auth'
 import { Post } from '@gossip/hooks/usePost'
-// interface ThreadDetails {
-//     id: string,
-//     username: string,
-//     time: string,
-//     avatar: string,
-//     content: string,
-//     tags?: string[],
-//     images?: string[],
-//     repostsCount?: number,
-//     commentsCount?: number,
-// }
-// const threadsList: ThreadDetails[] = [
-//     {
-//         id: "user1",
-//         username: 'aura',
-//         time: '2h',
-//         avatar: '/assets/icons/profile/user1.jpg',
-//         content: 'I have been exploring ways of setting up variables in Figma if you have two different sets of global colours for light and dark themes with multiple brands. If you want to learn more about it, DM me, please',
-//         tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
-//         images: [
-//             "/assets/icons/feeds/Rectangle 8.jpg", "/assets/icons/feeds/Rectangle 9.jpg"
-//         ],
-//         repostsCount: 10,
-//         commentsCount: 20,
-//     },
-//     {
-//         id: "user2",
-//         username: 'dk404',
-//         time: '2 min',
-//         avatar: '/assets/icons/profile/user 4.jpg',
-//         content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
-//         tags: ["#full - stack", "#frontend", "#figma"],
-//         repostsCount: 7,
-//         commentsCount: 59,
-//     },
-//     {
-//         id: "user3",
-//         username: 'Aura',
-//         time: '20 min',
-//         avatar: '/assets/icons/profile/user1.jpg',
-//         content: "Hold onto your seats, folks! The new iPhone is coming in hot, ready to rock our world! Imagine the stunning photos and videos I'll capture with this beauty! 📸💥",
-//         tags: ["#full - stack", "#BringItOnNewiPhone", "#BeyondExcited"],
-//         repostsCount: 10,
-//         commentsCount: 59,
-//     },
-//     {
-//         id: "user4",
-//         username: 'Aman Singh',
-//         time: '1 min',
-//         avatar: '/assets/icons/profile/user 5.jpg',
-//         content: "It took so long for this desktop version of Threads to come out, but I'm really excited to start posting tips and content directly from the computer",
-//         tags: ["#full - stack", "#amanTech", "#BeyondExcited"],
-//         images: [
-//             "/assets/icons/Gossip.svg",
-//         ],
-//         repostsCount: 100,
-//         commentsCount: 509,
-//     },
-// ]
 
-const Thread = ({ details }: { details: feedsData }) => {
-    console.log(details)
+const CreateNewPost = () => {
+    const { post, setPost, CreatePost } = Post()
+    const router = useRouter()
+
+    return (
+        <>
+            {/* new thread */}
+            <Stack
+                direction={'row'}
+                spacing={'12px'}
+                sx={{
+                    p: '16px 16px 16px 12px',
+                    borderRadius: '16px',
+                    bgcolor: '#fff',
+                    boxShadow:
+                        '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
+                    maxWidth: '100%',
+                    width: '100%',
+                }}
+            >
+                {/* avatar */}
+                <Stack
+                    sx={{
+                        position: 'relative',
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        overflow: 'hidden',
+                        border: '1px solid ',
+                        borderColor: grey[300],
+                    }}
+                >
+                    <Image
+                        src={'/assets/icons/profile/user1.jpg'}
+                        alt={'user1'}
+                        fill
+                        unoptimized
+                        style={{
+                            objectFit: 'cover',
+                        }}
+                    />
+                </Stack>
+                {/* end avatar */}
+                {/* input and buttons */}
+                <Stack width={'100%'} spacing={'8px'}>
+                    {/* input */}
+                    <TextField
+                        sx={{
+                            width: '100%',
+                            '& .MuiInputBase-root': {
+                                padding: '0px',
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '14px',
+                                lineHeight: '20px',
+                                fontWeight: '500',
+                            },
+                            '& fieldset': { border: 'none' },
+                        }}
+                        id="standard-textarea"
+                        multiline
+                        maxRows={6}
+                        placeholder="Share something cool today"
+                        fullWidth
+                        onChange={(e) => {
+                            // find hastags in the text and add them to the tags array and other text to the caption
+                            const text = e.target.value
+                            const tags = text.match(/#[a-z0-9]+/gi)
+
+                            // remove /n from the text on enter and hahtag
+                            const caption = text
+                                .replace(/(\r\n|\n|\r)/gm, '')
+                                .replace(/#[a-z0-9]+/gi, '')
+                            // console.log(tags, caption)
+                            setPost({
+                                ...post,
+                                // convert tags to string[]
+                                tags: tags?.map((tag) => tag.replace('#', '')),
+                                caption: caption,
+                            })
+                        }}
+                    />
+                    {/* end input */}
+                    {/* buttons */}
+                    <Stack
+                        direction={'row'}
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                    >
+                        {/* attach file */}
+                        <IconButton>
+                            <AttachFileIcon
+                                sx={{
+                                    transform: 'rotate(45deg)',
+                                    width: '24px',
+                                    height: '24px',
+                                }}
+                            />
+                        </IconButton>
+                        {/* end attach file */}
+
+                        {/* send */}
+                        <IconButton
+                            sx={{
+                                bgcolor: grey[200],
+                                alignSelf: 'center',
+                                justifyContent: 'center',
+                            }}
+                            onClick={() =>
+                                CreatePost(() => {
+                                    router.reload()
+                                })
+                            }
+                        >
+                            <SendOutlinedIcon
+                                sx={{
+                                    transform: 'rotate(-45deg)',
+                                    width: '16px',
+                                    height: '16px',
+                                }}
+                            />
+                        </IconButton>
+                    </Stack>
+                    {/* end buttons */}
+                </Stack>
+                {/* end input and buttons */}
+            </Stack>
+            {/* end new thread */}
+        </>
+    )
+}
+
+const GossipPost = ({ details }: { details: feedsData }) => {
     const router = useRouter()
     const auth = useSelector(selectAuth)
 
@@ -253,24 +325,14 @@ const Thread = ({ details }: { details: feedsData }) => {
                 {/* end tags */}
 
                 {/* start for images */}
-                <Stack
-                    alignItems={'flex-start'}
-                    gap={'8px'}
-                    direction={'row'}
-                    flexWrap={'wrap'}
-                >
-                    {/* {details.images?.map((imgSrc, index) => (
-                        <Image
-                            key={index} // Make sure to provide a unique key for each image
-                            src={imgSrc}
-                            alt={`Image ${index + 1}`}
-                            width={'238'}
-                            height={'230'}
-                            unoptimized
-                        />
-                    ))} */}
-                    {details.images && details.images.length > 0 ? (
-                        details.images.map((imgSrc, index) => (
+                {details.images && (
+                    <Stack
+                        alignItems={'flex-start'}
+                        gap={'8px'}
+                        direction={'row'}
+                        flexWrap={'wrap'}
+                    >
+                        {details.images.map((imgSrc, index) => (
                             <Image
                                 key={index}
                                 src={imgSrc}
@@ -279,17 +341,9 @@ const Thread = ({ details }: { details: feedsData }) => {
                                 height={230}
                                 unoptimized
                             />
-                        ))
-                    ) : (
-                        <Image
-                            src="/assets/icons/profile/user5.jpg"
-                            alt="photo"
-                            width={238}
-                            height={230}
-                            unoptimized
-                        />
-                    )}
-                </Stack>
+                        ))}
+                    </Stack>
+                )}
                 {/* end for images */}
                 {/* start for icon buttons like comment repost */}
                 <Stack alignItems={'flex-start'} direction={'row'} gap={'12px'}>
@@ -378,13 +432,11 @@ const Thread = ({ details }: { details: feedsData }) => {
     )
 }
 function Feeds() {
-    const { feeds, setFeeds, getFeeds } = usegetFeeds()
+    const { feeds, setFeeds, getFeeds } = useGetFeeds()
 
     useEffect(() => {
         getFeeds()
     }, [getFeeds])
-
-    const { post, setPost, CreatePost } = Post()
 
     return (
         <Stack
@@ -396,128 +448,12 @@ function Feeds() {
             }}
             maxWidth={'100%'}
         >
-            {/* new thread */}
-            <Stack
-                direction={'row'}
-                spacing={'12px'}
-                sx={{
-                    p: '16px 16px 16px 12px',
-                    borderRadius: '16px',
-                    bgcolor: '#fff',
-                    boxShadow:
-                        '0px 4px 6px -1px rgba(16, 24, 40, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10)',
-                    maxWidth: '100%',
-                    width: '100%',
-                }}
-            >
-                {/* avatar */}
-                <Stack
-                    sx={{
-                        position: 'relative',
-                        width: '36px',
-                        height: '36px',
-                        borderRadius: '50%',
-                        overflow: 'hidden',
-                        border: '1px solid ',
-                        borderColor: grey[300],
-                    }}
-                >
-                    <Image
-                        src={'/assets/icons/profile/user1.jpg'}
-                        alt={'user1'}
-                        fill
-                        unoptimized
-                        style={{
-                            objectFit: 'cover',
-                        }}
-                    />
-                </Stack>
-                {/* end avatar */}
-                {/* input and buttons */}
-                <Stack width={'100%'} spacing={'8px'}>
-                    {/* input */}
-                    <TextField
-                        sx={{
-                            width: '100%',
-                            '& .MuiInputBase-root': {
-                                padding: '0px',
-                            },
-                            '& .MuiInputBase-input': {
-                                fontSize: '14px',
-                                lineHeight: '20px',
-                                fontWeight: '500',
-                            },
-                            '& fieldset': { border: 'none' },
-                        }}
-                        id="standard-textarea"
-                        multiline
-                        maxRows={6}
-                        placeholder="Share something cool today"
-                        fullWidth
-                        onChange={(e) => {
-                            // find hastags in the text and add them to the tags array and other text to the caption
-                            const text = e.target.value
-                            const tags = text.match(/#[a-z0-9]+/gi)
+            <CreateNewPost />
 
-                            // remove /n from the text on enter and hahtag
-                            const caption = text
-                                .replace(/(\r\n|\n|\r)/gm, '')
-                                .replace(/#[a-z0-9]+/gi, '')
-                            console.log(tags, caption)
-                            setPost({
-                                ...post,
-                                // convert tags to string[]
-                                tags: tags?.map((tag) => tag.replace('#', '')),
-                                caption: caption,
-                            })
-                        }}
-                    />
-                    {/* end input */}
-                    {/* buttons */}
-                    <Stack
-                        direction={'row'}
-                        alignItems={'center'}
-                        justifyContent={'space-between'}
-                    >
-                        {/* attach file */}
-                        <IconButton>
-                            <AttachFileIcon
-                                sx={{
-                                    transform: 'rotate(45deg)',
-                                    width: '24px',
-                                    height: '24px',
-                                }}
-                            />
-                        </IconButton>
-                        {/* end attach file */}
-
-                        {/* send */}
-                        <IconButton
-                            sx={{
-                                bgcolor: grey[200],
-                                alignSelf: 'center',
-                                justifyContent: 'center',
-                            }}
-                            onClick={() => CreatePost()}
-                        >
-                            <SendOutlinedIcon
-                                sx={{
-                                    transform: 'rotate(-45deg)',
-                                    width: '16px',
-                                    height: '16px',
-                                }}
-                            />
-                        </IconButton>
-                    </Stack>
-                    {/* end buttons */}
-                </Stack>
-                {/* end input and buttons */}
-            </Stack>
-            {/* end new thread */}
             {/* thread */}
             <Stack spacing={'8px'}>
                 {feeds.map((feed, index) => (
-                    <Thread key={index} details={feed} />
+                    <GossipPost key={index} details={feed} />
                 ))}
             </Stack>
             {/* end threads feed */}

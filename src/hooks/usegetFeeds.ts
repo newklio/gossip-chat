@@ -28,46 +28,58 @@ export type feedsData = z.infer<typeof getFeedsSchema>
 const Server = process.env.NEXT_PUBLIC_API_SERVER
 console.log(Server)
 
-export const usegetFeeds = () => {
+export const useGetFeeds = () => {
     const dispatch = useDispatch()
 
     const auth = useSelector(selectAuth)
     const [feeds, setFeeds] = useState<feedsData[]>([])
 
-    const getFeeds = useCallback(async () => {
-        var myHeaders = new Headers()
-        myHeaders.append('Content-Type', 'application/json')
-        myHeaders.append('Authorization', `${auth.token}`)
+    const getFeeds = useCallback(
+        async (skip?: number, limit?: number, sortOrder?: 'asc' | 'desc') => {
+            var myHeaders = new Headers()
+            myHeaders.append('Content-Type', 'application/json')
+            myHeaders.append('Authorization', `${auth.token}`)
 
-        fetch(`${Server}/posts/getFeeds`, {
-            method: 'GET',
-            headers: myHeaders,
-        })
-            .then(async (response) => {
-                let data = (await response.json()) as {
-                    message: string
-                    payload: feedsData[]
-                }
+            const params = new URLSearchParams()
+            skip = skip || 0
+            limit = limit || 10
+            sortOrder = sortOrder || 'desc'
 
-                if (response.status === 200) {
-                    const updatedFeeds = data.payload.map((Feeds) => ({
-                        ...Feeds,
-                        createdOn: new Date(Feeds.createdOn),
-                    }))
-                    setFeeds(updatedFeeds)
-                } else {
-                    dispatch(
-                        setAlert({
-                            message: 'Error: ' + data.message,
-                            severity: 'error',
-                        }),
-                    )
-                }
+            if (skip !== undefined) params.append('skip', skip.toString())
+            if (limit) params.append('limit', limit.toString())
+            if (sortOrder) params.append('sortOrder', sortOrder)
+
+            fetch(`${Server}/posts/getFeeds?${params.toString()}`, {
+                method: 'GET',
+                headers: myHeaders,
             })
-            .catch((error) => {
-                console.log('Failed to fetch feeds', error)
-            })
-    }, [auth.token, dispatch])
+                .then(async (response) => {
+                    let data = (await response.json()) as {
+                        message: string
+                        payload: feedsData[]
+                    }
+
+                    if (response.status === 200) {
+                        const updatedFeeds = data.payload.map((Feeds) => ({
+                            ...Feeds,
+                            createdOn: new Date(Feeds.createdOn),
+                        }))
+                        setFeeds(updatedFeeds)
+                    } else {
+                        dispatch(
+                            setAlert({
+                                message: 'Error: ' + data.message,
+                                severity: 'error',
+                            }),
+                        )
+                    }
+                })
+                .catch((error) => {
+                    console.log('Failed to fetch feeds', error)
+                })
+        },
+        [auth.token, dispatch],
+    )
 
     return {
         feeds,
