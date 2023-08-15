@@ -27,48 +27,54 @@ export const Post = () => {
     const auth = useSelector(selectAuth)
     const dispatch = useDispatch()
 
-    const CreatePost = useCallback(async () => {
-        console.log(post)
+    const CreatePost = useCallback(
+        async (callback?: () => void, errorCallback?: () => void) => {
+            console.log(post)
 
-        var myHeaders = new Headers()
-        // add authorization header
-        myHeaders.append('Content-Type', 'application/json')
-        myHeaders.append('Authorization', `${auth.token}`)
-        var raw = JSON.stringify(post)
-        console.log(raw, myHeaders, auth.token)
-        fetch(`${Server}/posts/createPost`, {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow',
-        })
-            .then(async (response) => {
-                console.log(response)
-                // we parse the response body
-                let NewPost = await response.json()
-
-                if (response.status === 200) {
-                    dispatch(
-                        setAlert({
-                            severity: 'success',
-                            message: 'Post created successfully',
-                        }),
-                    )
-
-                    console.log(NewPost)
-                } else {
-                    console.log(NewPost.message || 'An error occured')
-
-                    dispatch(
-                        setAlert({
-                            severity: 'error',
-                            message: NewPost.message || 'An error occured',
-                        }),
-                    )
-                }
+            var myHeaders = new Headers()
+            // add authorization header
+            myHeaders.append('Content-Type', 'application/json')
+            myHeaders.append('Authorization', `${auth.token}`)
+            var raw = JSON.stringify(post)
+            console.log(raw, myHeaders, auth.token)
+            fetch(`${Server}/posts/createPost`, {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow',
             })
-            .catch((error) => console.log('error', error))
-    }, [auth.token, dispatch, post])
+                .then(async (response) => {
+                    console.log(response)
+                    // we parse the response body
+                    let NewPost = await response.json()
+
+                    if (response.status === 200) {
+                        dispatch(
+                            setAlert({
+                                severity: 'success',
+                                message: 'Post created successfully',
+                            }),
+                        )
+
+                        callback && callback()
+
+                        console.log(NewPost)
+                    } else {
+                        console.log(NewPost.message || 'An error occured')
+                        errorCallback && errorCallback()
+
+                        dispatch(
+                            setAlert({
+                                severity: 'error',
+                                message: NewPost.message || 'An error occured',
+                            }),
+                        )
+                    }
+                })
+                .catch((error) => console.log('error', error))
+        },
+        [auth.token, dispatch, post],
+    )
 
     return {
         CreatePost,
