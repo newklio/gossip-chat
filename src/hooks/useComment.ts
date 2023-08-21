@@ -28,15 +28,32 @@ export const useComments = () => {
     const [postComments, setPostComments] = useState<CommentSchema[]>([])
 
     const getComment = useCallback(
-        async (id: string) => {
+        async (
+            id: string,
+            skip?: number,
+            limit?: number,
+            sortOrder?: 'asc' | 'desc',
+        ) => {
             var myHeaders = new Headers()
             myHeaders.append('Content-Type', 'application/json')
             myHeaders.append('Authorization', `${auth.token}`)
 
-            fetch(`${Server}/posts/comments/getComments/${id}`, {
-                method: 'GET',
-                headers: myHeaders,
-            })
+            const params = new URLSearchParams()
+            skip = skip || 0
+            limit = limit || 10
+            sortOrder = sortOrder || 'desc'
+
+            if (skip !== undefined) params.append('skip', skip.toString())
+            if (limit) params.append('limit', limit.toString())
+            if (sortOrder) params.append('sortOrder', sortOrder)
+
+            fetch(
+                `${Server}/posts/comments/getComments/${id}?skip=0&limit=10&sortOrder=asc`,
+                {
+                    method: 'GET',
+                    headers: myHeaders,
+                },
+            )
                 .then(async (response) => {
                     let data = (await response.json()) as {
                         message: string

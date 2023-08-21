@@ -1,5 +1,6 @@
 import { PostComment } from '@gossip/components/post/Postcomment'
 import auth, { selectAuth } from '@gossip/globals/reducers/auth'
+import { createComment } from '@gossip/hooks/UseAddComment'
 import { useComments } from '@gossip/hooks/useComment'
 import { SinglePostData } from '@gossip/hooks/useSinglePost'
 import { myTheme } from '@gossip/theme'
@@ -27,6 +28,7 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
     const router = useRouter()
     const auth = useSelector(selectAuth)
     const { postComments, getComment } = useComments();
+    const { addComment, comment, setComment } = createComment()
     // const postId = "d2f4e645 - 5414 - 4a97-8dc1 - e16f18e1fb8a"
     const { id } = router.query
 
@@ -376,6 +378,21 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                 maxRows={2}
                                 placeholder="Share Your Thoughts..."
                                 fullWidth
+                                onChange={(e) => {
+                                    const text = e.target.value
+                                    const tags = text.match(/#[a-z0-9]+/gi)
+
+                                    // remove /n from the text on enter and hahtag
+                                    const Comment = text
+                                        .replace(/(\r\n|\n|\r)/gm, '')
+                                        .replace(/#[a-z0-9]+/gi, '')
+                                    setComment({
+                                        ...comment,
+                                        // convert tags to string[]
+                                        tags: tags?.map((tag) => tag.replace('#', '')),
+                                        comment: Comment,
+                                    })
+                                }}
                             />
                         </Stack>
                         {/* for post button */}
@@ -395,6 +412,13 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                         opacity: 0.8,
                                         bgcolor: grey[900],
                                     },
+                                }}
+                                onClick={() => {
+                                    const id = router.query.id as string
+                                    console.log(id)
+                                    addComment(id, () => {
+                                        router.reload()
+                                    })
                                 }}
                             >
                                 Post
