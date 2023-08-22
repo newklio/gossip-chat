@@ -1,6 +1,6 @@
 import { PostComment } from '@gossip/components/post/Postcomment'
 import auth, { selectAuth } from '@gossip/globals/reducers/auth'
-import { createComment } from '@gossip/hooks/UseAddComment'
+import { useCreateComment } from '@gossip/hooks/UseAddComment'
 import { useComments } from '@gossip/hooks/useComment'
 import { SinglePostData } from '@gossip/hooks/useSinglePost'
 import { myTheme } from '@gossip/theme'
@@ -27,8 +27,8 @@ import { useSelector } from 'react-redux'
 const SingleFeed = ({ data }: { data: SinglePostData }) => {
     const router = useRouter()
     const auth = useSelector(selectAuth)
-    const { postComments, getComment } = useComments();
-    const { addComment, comment, setComment } = createComment()
+    const { postComments, getComment } = useComments()
+    const { addComment, comment, setComment } = useCreateComment()
     // const postId = "d2f4e645 - 5414 - 4a97-8dc1 - e16f18e1fb8a"
     const { id } = router.query
 
@@ -37,10 +37,9 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
             router.replace('/login')
         }
         if (id) {
-            getComment(id as string);
+            getComment(id as string)
         }
-
-    }, [getComment, id, auth.authenticated, router]);
+    }, [getComment, id, auth.authenticated, router])
 
     if (!auth.authenticated) {
         return null
@@ -48,7 +47,6 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
 
     return (
         <Stack direction={'column'} alignItems={'flex-start'} gap={'16px'}>
-
             <Stack gap={'8px'} alignItems={'center'} direction={'row'}>
                 <IconButton onClick={() => router.back()}>
                     <ArrowBackSharpIcon
@@ -147,10 +145,11 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                             {/* user name */}
                             <Typography
                                 sx={{
-                                    fontSize: "14px",
-                                    lineHeight: "19px",
-                                    fontWeight: "600",
-                                }}>
+                                    fontSize: '14px',
+                                    lineHeight: '19px',
+                                    fontWeight: '600',
+                                }}
+                            >
                                 Aman
                             </Typography>
                             {/* end user name */}
@@ -202,19 +201,20 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                         {/* end caption */}
                         {/* start tags */}
 
-                        <Stack
-                        >{data.tags?.map((tag, index) => (
-                            <Typography
-                                sx={{
-                                    fontSize: "13px",
-                                    lineHeight: "19px",
-                                    fontWeight: "400",
-                                    color: "#03A9F4",
-                                }}
-                                key={index}>
-                                {tag}
-                            </Typography>
-                        ))}
+                        <Stack>
+                            {data.tags?.map((tag, index) => (
+                                <Typography
+                                    sx={{
+                                        fontSize: '13px',
+                                        lineHeight: '19px',
+                                        fontWeight: '400',
+                                        color: '#03A9F4',
+                                    }}
+                                    key={index}
+                                >
+                                    {tag}
+                                </Typography>
+                            ))}
                         </Stack>
                     </Stack>
                     {/* end tags */}
@@ -389,7 +389,9 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                                     setComment({
                                         ...comment,
                                         // convert tags to string[]
-                                        tags: tags?.map((tag) => tag.replace('#', '')),
+                                        tags: tags?.map((tag) =>
+                                            tag.replace('#', ''),
+                                        ),
                                         comment: Comment,
                                     })
                                 }}
@@ -448,26 +450,9 @@ const SingleFeed = ({ data }: { data: SinglePostData }) => {
                     </Stack>
                 </Stack>
                 {/* end right content section -heading Caption images and like comment */}
-            </Stack >
-        </Stack >
+            </Stack>
+        </Stack>
     )
 }
 
 export default SingleFeed
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

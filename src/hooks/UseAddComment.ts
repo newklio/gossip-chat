@@ -19,7 +19,7 @@ const addCommentSchema = z.object({
 type addCommentSchemaType = z.infer<typeof addCommentSchema>
 const Server = process.env.NEXT_PUBLIC_API_SERVER
 
-export const createComment = () => {
+export const useCreateComment = () => {
     const [comment, setComment] = useState<addCommentSchemaType>()
     const auth = useSelector(selectAuth)
     const dispatch = useDispatch()
