@@ -34,13 +34,6 @@ export const Signpage = () => {
 
     const auth = useSelector(selectAuth)
 
-    useEffect(() => {
-        if (auth.authenticated) {
-            router.push('/home')
-            openAlert('user Logged in successfully', 'success')
-        }
-    }, [auth.authenticated])
-
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setChecked(event.target.checked)
@@ -83,6 +76,12 @@ export const Signpage = () => {
             .catch((error) => console.log('error', error))
     })
 
+    useEffect(() => {
+        if (auth.authenticated) {
+            router.push('/home')
+            openAlert('user Logged in successfully', 'success')
+        }
+    }, [auth.authenticated, router, openAlert])
     return {
         handleChange,
         SubmitData,
