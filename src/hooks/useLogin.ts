@@ -31,15 +31,6 @@ export const useLogin = () => {
 
     const auth = useSelector(selectAuth)
 
-    useEffect(() => {
-        if (!auth.authenticated) {
-            dispatch(logout())
-        } else if (auth.authenticated) {
-            router.push('/home')
-            openAlert('user is already Logged in', 'success')
-        }
-    }, [auth.authenticated, dispatch])
-
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setChecked(event.target.checked)
@@ -105,6 +96,15 @@ export const useLogin = () => {
                 console.log(error)
             })
     })
+
+    useEffect(() => {
+        if (!auth.authenticated) {
+            dispatch(logout())
+        } else if (auth.authenticated) {
+            router.push('/home')
+            openAlert('user is already Logged in', 'success')
+        }
+    }, [auth.authenticated, dispatch, openAlert, router])
 
     return {
         register,
